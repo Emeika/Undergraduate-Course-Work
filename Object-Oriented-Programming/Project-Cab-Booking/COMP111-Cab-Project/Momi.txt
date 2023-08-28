@@ -1,0 +1,2 @@
+point a,point x,20.0,800.0,20/06/2022 21:17:22,Manal,3800242876,Car,Suzuki bolan,Cash,Cancelled
+Vaio,Sony,4.0,160.0,20/06/2022 21:20:00,Sheikh,8007778872,Car,Honda City,Card,Completed

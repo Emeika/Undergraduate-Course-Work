@@ -1,0 +1,5 @@
+colorama==0.4.5
+memory-profiler==0.57.0
+memunit==0.5.2
+psutil==5.7.3
+timeout-decorator==0.5.0

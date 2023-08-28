@@ -1,0 +1,3 @@
+big bang,disney land,1000.0,40000.0,19/06/2022 18:04:25,Manal,3800242876,Car,Suzuki bolan,Card,Completed
+talabad,dam,800.0,24000.0,19/06/2022 21:30:46,lili,5346325262,Auto,United Auto Rickshaw,Card,Completed
+poink,doink,66.0,1980.0,20/06/2022 22:00:35,Raza,31177433224,Auto,Tez Raftar,Cash,Cancelled

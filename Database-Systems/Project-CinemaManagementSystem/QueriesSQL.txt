@@ -1,0 +1,183 @@
+Drop TABLE Persons
+--create database Lab5
+
+use Lab5
+
+CREATE TABLE Persons(  )
+
+CONSTRAINT uc_PersonID UNIQUE(P_Id,LastName)
+
+ALTER TABLE Persons
+
+Insert into Persons
+
+Values	( )
+
+PersonID int FOREIGN KEY REFERENCES Persons(PersonID)
+FOREIGN KEY (ID) REFERENCES StudentDetails(ID)
+
+ALTER TABLE Persons
+ADD CONSTRAINT uc_PersonIDB UNIQUE(P_Id,LastName)
+
+DELETE FROM Customers
+WHERE CustomerName='Alfreds Futterkiste' AND ContactName='Maria Anders' -- delete row
+
+UPDATE Customers
+SET ContactName='Alfred Schmidt'
+WHERE CustomerName='Alfreds Futterkiste' AND (City='Berlin' OR City='München')
+
+SELECT DISTINCT City FROM Customers
+
+SELECT *
+FROM Customers
+ORDER BY Country,CustomerName -- by default asc
+ORDER BY Country DESC
+
+SELECT TOP 2 *  --FIRST FULL ROW
+FROM Customers
+
+SELECT TOP 1 CustomerName FROM Customers  -- LAST CUSTOMERNAME BY DESC ORDER
+ORDER BY CustomerName DESC
+
+SELECT TOP 50 PERCENT *
+FROM Customers
+
+WHERE CustomerID <= 2
+
+WILDCARDS
+SELECT * FROMCustomers WHERE City LIKE'ber%'; -- City starting with "ber"
+
+SELECT * FROM Customers WHERE City LIKE'%es%';  -- City containing the pattern "es"
+
+SELECT * FROMCustomers WHERE City LIKE'_erlin'; -- City starting with any character, followed by"erlin":
+SELECT * FROMCustomers WHERE City LIKE'L_n_on
+
+SELECT * FROMCustomers WHERE City LIKE'[bsp]%'; -- City starting with "b", "s", or "p":
+
+SELECT * FROMCustomers WHERE City LIKE'[a-c]%'; -- City starting with "a", "b", or "c":
+
+SELECT * FROMCustomers WHERE City LIKE'[!bsp]%'; --City NOT starting with "b", "s", or "p" 
+NOT LIKE'[bsp]%';
+
+SELECT * FROM Customers WHERE City IN('Paris','London'); --customers with a City of "Paris" or "London"
+
+SELECT * FROM Products
+WHERE (Price BETWEEN 10
+AND 20) AND NOT CategoryID
+IN (1,2,3)
+
+
+ALIAS:
+SELECT CustomerName AS Customer, ContactName AS [Contact Person] FROMCustomers -- Double quotations or [] if space
+
+SELECT CustomerName, Address+', '+City+', '+PostalCode+', '+Country AS Address FROMCustomers; --combine four columns
+Aliases can be usefulwhen:
+There are more than one table involved in a query
+Functions are used in thequery
+Column names are big or not veryreadable
+Two or more columns are combinedtogether
+
+SELECT o.OrderID, o.OrderDate,
+c.CustomerName 
+FROM Customers AS c, ord AS o
+WHERE c.CustomerName= 'Around the Horn' AND
+c.CustomerID=o.CustomerID;
+
+ID int IDENTITY(1,1) PRIMARY KEY, --NOT have to specify a value for the "ID" column
+start at 10 and increment by 5, change it to IDENTITY(10,5).
+
+AGGREGATE:
+SELECT ProductName, Price FROMProducts
+WHERE Price>(SELECT AVG(Price) FROM Products) --selects the "ProductName" and "Price" records that have an above averageprice
+
+SELECT COUNT(DISTINCT SupplierID) FROM Product
+
+SELECT COUNT(*) AS NumberOfOrders FROMOrders; --counts the number of unique customers in the "Orders"table
+
+SELECT MAX(Price) AS HighestPrice FROM Products;
+SELECT MIN(Price) FROM Product
+
+SELECT SUM(Price) FROM Produc
+
+The GROUP BY statement is used in conjunction with the aggregate functions to group the result-set by one or morecolumns
+
+SELECT Shippers.ShipperName,COUNT(Orders.OrderID) AS NumberOfOrders
+FROM Orders LEFT JOIN Shippers
+ON Orders.ShipperID=Shippers.ShipperID GROUP BYShipperName;  --number of orders sent by each shipper.
+
+SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders FROM (Orders INNER JOIN Employees
+ON Orders.EmployeeID=Employees.EmployeeID) GROUP BYLastName
+HAVING COUNT(Orders.OrderID) >10;   --employees has registered more than 10 orders
+
+SELECTEmployees.LastName,
+COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders INNER JOIN Employees
+ON Orders.EmployeeID=Employees.EmployeeID WHERE LastName='Davolio' OR LastName='Fuller' GROUP BYLastName
+HAVING COUNT(Orders.OrderID) > 25;
+
+
+SCALAR:
+SELECT upper(CustomerName) AS
+Customer, City FROM Customers --uppercase
+
+SELECT lower(CustomerName) AS
+Customer, City FROM Customers  --LOWERCASE
+
+SELECT substring(City,1,4) AS
+ShortCity FROM Customers  --extract characters from a text
+
+SELECT CustomerName,LEN(Address) as
+LengthOfAddress FROM Customers; --e length of the values
+
+select round(Price,1) from Product --round a numeric field to the number of decimals
+
+SELECT ProductName, Price, FORMAT(getdate(),'yyyy-mm-dd') AS PerDate FROM Product-- price for today 
+
+JOINS:  JOIN clause is used to combine rows from two or more tables, based on a common field betweenthem
+INNER JOIN: Returns all rows when there is at least one match in BOTHtables
+LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
+RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
+FULL JOIN: Return all rows when there is a match in ONE of thetables
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers INNER JOIN
+Orders ON Customers.CustomerID=Orders.CustomerID 
+ORDER BY Customers.CustomerName;  --return all customers with orders
+
+
+SELECT Customers.CustomerName, Orders.OrderID FROMCustomers
+LEFT JOINOrders
+ON Customers.CustomerID=Orders.CustomerID ORDER BYCustomers.CustomerName;  --return all customers, and any orders they might have
+
+
+SELECT Orders.OrderID,
+Employees.FirstName
+FROM Orders RIGHT JOIN Employees ON 
+Orders.EmployeeID=Employees.EmployeeID ORDER BY Orders.OrderID   --return all employees, and any orders they have placed
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders
+ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName  --selects all customers, and allorders:
+
+The SQL UNION operator combines the result of two or more SELECTstatements.
+each SELECT statement within the UNION must have the same number of columns. The columns must also have similar data types. Also, the columns in each SELECT statement must be in the sameorder.
+The UNION operator selects only distinct values by default. To allow duplicate values, use the ALL keyword withUNION
+
+SELECT City FROM Customers UNION SELECT City FROM Suppliers ORDER BYCity; --selects all the different cities (only distinct values) from the "Customers" and the "Suppliers"tables
+UNION ALL to select all (duplicate values also) cities from the"Customers"and"Suppliers"tables:
+SELECT City FROM
+Customers UNION ALL SELECT City FROM
+Suppliers ORDER BY
+City
+
+SELECT City, Country FROM
+Customers WHERE
+Country='Germany'
+UNION ALL
+SELECT City, Country FROM
+Suppliers WHERE
+Country='Germany'
+ORDER BY City;  --uses UNION ALL to select all (duplicate values also) German cities from the "Customers" and "Suppliers"tables
+
+
