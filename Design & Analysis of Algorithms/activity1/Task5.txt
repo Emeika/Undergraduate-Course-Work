@@ -1,0 +1,15 @@
+Practice Task 5: How will your algorithm behave if all the points lie on on left sliding
+diagonal? Will it effect the total number of iterations of your loops? How? Justify in couple
+of lines
+
+eg:
+for points [(1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 4, 4)]
+the maxima will be (4, 4, 4)
+the minima will be (1, 1, 1)
+
+
+If all points lie on a left-sliding diagonal, the algorithm will iterate through each point, 
+comparing their y and z coordinates. In this diagonal scenario, each point will have a unique y and z coordinate.
+However, the point with the highest/lowest x, y, and z coordinates will be the only one left 
+in the stack, as it won't be dominated by any other point. 
+The total number of iterations remains unaffected
