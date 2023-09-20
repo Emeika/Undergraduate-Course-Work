@@ -1,0 +1,16 @@
+Practice Task 3:  How will your algorithm behave if all the points lie on the same line
+vertically or horizontally? Will it effect the total number of iterations of your loops? How?
+Justify in couple of lines.
+
+
+Horizontal Line: If all points lie on the same horizontal line, the y-coordinate will remain constant.
+
+Vertical Line: If all points lie on the same vertical line, the x-coordinate will remain constant. 
+
+In the case where all points lie on the same line (either vertically or horizontally), 
+the algorithm will iterate through all the points, and each point will be dominated by the last point 
+in the sorted order (which will have the highest y and z coordinates in a horizontal line or the highest x coordinate in a vertical line).
+Hence, only the outer most points will be considered a local maxima.
+
+This scenario does not affect the total number of iterations since the number of points remains the same, 
+since both y and z needs to be dominated.
