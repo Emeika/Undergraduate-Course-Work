@@ -1,0 +1,6 @@
+Practice Task 7: How maxima-point algorithm will behave if multiple points have same
+value of x-component? E.g. (2,9),(2,5),(2,4),(2,1). What needs to be fixed in the algorithm to
+handle this boundary case? Geometric Approach.
+
+sorting must be done on y coordinates in descending order
+the primary comparison criterion during iteration will be y
