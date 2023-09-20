@@ -1,0 +1,25 @@
+"""
+Design an algorithm for the maxima point problem (as discussed in class) 
+for a point in 3-D space i.e. a point having its x, y & z components. 
+
+"""
+
+########################### solved by geometric approach  ################################
+"""
+Input: A set of points in 3D space with x, y, and z components.
+Output: List of local maxima points.
+
+Procedure:
+Sort the points based on x coordinates in ascending order
+A stack will store the maxima points
+(Stack is more efficient because we dont need to randomly access our point indexes)
+
+As soon as the point Pi is dominated by Pj, we do not need Pi point, because Pi can never be a maxima point.
+A vertical plane is sweeped across the 3D space along vertical plane
+when it reaches the rightmost point
+
+O(nlogn) time complexity
+O(n) for sorting  + O(n) outer loop  + O(n) inner loop
+
+code in task 2 file
+"""
