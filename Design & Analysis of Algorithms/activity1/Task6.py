@@ -55,9 +55,7 @@ points = [Point3D(12, 5, 8), Point3D(21, 3, 6), Point3D(4, 7, 2),
 
 # Sort points based on y-coordinate
 points.sort(key=lambda point: point.y)
-for point in points:
-    print(point)
-print("\n")
+
 
 
 s = Stack()

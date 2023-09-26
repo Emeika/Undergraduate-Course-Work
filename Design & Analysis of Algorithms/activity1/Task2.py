@@ -47,17 +47,19 @@ class Point3D:
 # Create a list of Point3D objects using the provided coordinates
 
 
-#points = [Point3D(12, 5, 8), Point3D(21, 3, 6), Point3D(4, 7, 2), 
-  #      Point3D(10, 2, 5), Point3D(3, 4, 9), Point3D(6, 1, 3), Point3D(2, 1, 10)]
+points = [Point3D(12, 5, 8), Point3D(21, 3, 6), Point3D(4, 7, 2), 
+        Point3D(10, 2, 5), Point3D(3, 4, 9), Point3D(6, 1, 3), Point3D(2, 1, 10)]
 
 # points = [Point3D(1, 5, 2), Point3D(2, 5, 3), Point3D(3, 5, 1), Point3D(4, 5, 4)]
 # points = [Point3D(5, 1, 2), Point3D(5, 2, 3), Point3D(5, 3, 1), Point3D(5, 4, 4)]
 # points = [Point3D(1, 1, 1), Point3D(2, 2, 2), Point3D(3, 3, 3), Point3D(4, 4, 4)]
 # 
-points = [Point3D(2, 9, 1), Point3D(2, 5, 2), Point3D(2, 4, 3), Point3D(2, 1, 4)]
+# points = [Point3D(2, 9, 1), Point3D(2, 5, 2), Point3D(2, 4, 3), Point3D(2, 1, 4)]
+
 
 # Sort points based on x-coordinate
 points.sort(key=lambda point: point.x)
+#print(points)
 
 
 s = Stack()
