@@ -1,0 +1,59 @@
+#-----------------------PartA-----------------------#
+#BRUTE FORCE:
+def alter(Arr, n):
+
+    fifth = n // 5
+    for i in range(fifth):
+        if Arr[i] % 2 == 0:
+            Arr[i] =  Arr[i] + 3
+        if i % 2 == 1:
+            Arr[i] = Arr[i] + 2
+    return Arr
+print("add 3 in all even numbers and add 2 in all odd indices in the first 1/5th elements: ")
+lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11]
+print(alter(lit, len(lit)))
+#-----------------------PartA-----------------------#
+#DIVIDE AND CONQUER:
+def alter(Arr, p, r):
+    if p==r:
+        if Arr[p] % 2 == 0:
+            Arr[p] =  Arr[p] + 3
+        if p % 2 == 1:
+            Arr[p] = Arr[p] + 2
+    else:
+        mid = (p + r)//2
+        alter(Arr, p, mid)
+        alter(Arr, mid+1, r)
+    return Arr
+lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11]
+fifth = (0 + 30)// 5
+print("add 3 in all even numbers and add 2 in all odd indices in the first 1/5th elements: ")
+print(alter(lit, 0, fifth))
+
+#-----------------------PartB-----------------------#
+#BRUTE FORCE:
+def calc_sum(arr):
+    total = 0
+    for i in range(len(arr)):
+        total += arr[i]
+    return total
+print("take sum of n integers")
+print(calc_sum([1,2,3,4,5,6,7,8,9]))
+#-----------------------PartB-----------------------#
+#DIVIDE AND CONQUER:
+def calc_sum(arr, p, r):
+    if p == r:
+        return arr[p]
+    elif p == r-1:
+        return arr[p] + arr[r]
+
+    
+    mid1 = p + (r - p) // 3
+    mid2 = p + 2 * (r - p) // 3
+    chunk1 = calc_sum(arr, p, mid1)
+    chunk2 = calc_sum(arr, mid1 + 1, mid2)
+    chunk3 = calc_sum(arr, mid2 + 1, r) 
+
+    return chunk1 + chunk2 + chunk3
+print("take sum of n integers & to be divided into three parts")
+print(calc_sum([1,2,3,4,5,6,7,8,9], 0, 8))
