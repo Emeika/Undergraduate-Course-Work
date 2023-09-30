@@ -138,3 +138,18 @@ def duplicate(T,Z):
             return False
     return True
 print(duplicate([1,2,3],[1,2,3]))
+
+#-----------------------PartE-----------------------#
+#DIVIDE AND CONQUER:
+def duplicate(T, Z, p, r):
+    if len(T) != len(Z):
+        return False
+    if p == r:
+        return T[p] == Z[p]
+    else:
+        mid = (p+r) //2
+        left_duplicate = duplicate(T, Z, p, mid)
+        right_duplicate = duplicate(T, Z, mid+1, r)
+        return left_duplicate and right_duplicate
+
+print(duplicate([1,2,3],[1,2,3], 0, 2))

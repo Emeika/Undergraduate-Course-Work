@@ -161,3 +161,19 @@ for i: 1....n
   if T[i] != Z[i]
     return false
   return true
+
+-----------------------------------------------------------------------------------------------
+DIVIDE AND CONQUER:                                     recurrence relation: T(n) = T(n/2) + T(n/2) +  1
+returnValue duplicate(T[1.....n], Z[1.....n], p, r)                               = 2T(n/2) + 1
+    if T(n) != Z(n)
+        return false
+    if p == r
+        if T[p] != Z[p]
+            return false
+        else
+            return true
+    else
+        mid = floor((p+r) / 2)  
+        left_duplicate = duplicate(T[1.....n], Z[1.....n], p, mid)
+        right_duplicate = duplicate(T[1.....n], Z[1.....n], mid+1, r)
+        return left_duplicate AND right_duplicate
