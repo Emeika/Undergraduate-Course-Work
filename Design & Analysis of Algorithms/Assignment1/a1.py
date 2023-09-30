@@ -57,3 +57,40 @@ def calc_sum(arr, p, r):
     return chunk1 + chunk2 + chunk3
 print("take sum of n integers & to be divided into three parts")
 print(calc_sum([1,2,3,4,5,6,7,8,9], 0, 8))
+
+#-----------------------PartC-----------------------#
+#BRUTE FORCE:
+def countB(Arr, b):
+    freq = 0
+    for i in range(len(Arr)):
+        if (Arr[i] == b):
+            freq+= 1
+    return freq
+print("Count the total number of B in this sorted list - brute force")
+print(countB([1,1,1,1,2,2,3,3,3,4,4,5,5,6,6], 3))
+#-----------------------PartC-----------------------#
+#INTELLIGENT:
+def countB(Arr, b):
+    freq = 0
+    for i in range(len(Arr)):
+        if (Arr[i] == b):
+            freq+= 1
+        elif (b < Arr[i]):
+            return freq
+    return freq
+print("Count the total number of B in this sorted list - intelligent")
+print(countB([1,1,1,1,2,2,3,3,3,4,4,5,5,6,6], 3))
+#-----------------------PartC-----------------------#
+#DIVIDE AND CONQUER:
+def countB(Arr, b, p, r):
+    if (p==r and Arr[p] == b):
+        return 1
+    elif (p==r and Arr[p] != b):
+        return 0
+    else:
+        mid = (p+r) //2
+        count1 = countB(Arr, b, p, mid)
+        count2 = countB(Arr, b, mid+1, r)
+    return count1 + count2
+print("Count the total number of B in this sorted list - divide n conquer")
+print(countB([1,1,1,1,2,2,3,3,3,4,4,5,5,6,6], 3, 0, 14))
