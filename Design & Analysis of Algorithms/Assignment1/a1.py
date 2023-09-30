@@ -127,3 +127,14 @@ arr = [2,4,8,16]
 print("Swap with its immediate neighbor element with divide and conquer:")
 swap(arr,0,2)
 print(arr)
+
+#-----------------------PartE-----------------------#
+#BRUTE FORCE:
+def duplicate(T,Z):
+    if len(T) != len(Z):
+        return False
+    for i in range(len(T)):
+        if T[i] != Z[i]:
+            return False
+    return True
+print(duplicate([1,2,3],[1,2,3]))

@@ -147,8 +147,17 @@ void swap(Arr[1........n], p, r)                                                
     swap(Arr[1.....n], p, mid)
     swap(Arr[1.....n], mid+1, r)
 
-
+##############################################################################################
 
 Part E: Consider that you have two arrays of positive integers T and Z. Write a program
 that compares the content of the two arrays and returns ‘true’ if the content of both arrays
 is the same and return ‘false’ otherwise.
+-----------------------------------------------------------------------------------------------
+BRUTE FORCE:
+returnValue duplicate(T[1.....n], Z[1.....n])
+if T(n) != Z(n):
+    return False
+for i: 1....n
+  if T[i] != Z[i]
+    return false
+  return true
