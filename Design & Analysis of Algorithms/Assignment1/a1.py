@@ -87,6 +87,12 @@ def countB(Arr, b, p, r):
         return 1
     elif (p==r and Arr[p] != b):
         return 0
+    if (Arr[p] == b and Arr[r] == b):
+        return r-p+1                   # all B's (sub list or full list)
+    if (Arr[r] < b):
+        return 0                       # all A's
+    if (Arr[p] > b):
+        return 0                       # all C's
     else:
         mid = (p+r) //2
         count1 = countB(Arr, b, p, mid)
@@ -94,3 +100,30 @@ def countB(Arr, b, p, r):
     return count1 + count2
 print("Count the total number of B in this sorted list - divide n conquer")
 print(countB([1,1,1,1,2,2,3,3,3,4,4,5,5,6,6], 3, 0, 14))
+
+#-----------------------PartD-----------------------#
+#BRUTE FORCE:
+def swap(Arr):
+
+    for i in range(len(Arr)-1):
+        temp = Arr[i]
+        Arr[i] = Arr[i+1]
+        Arr[i+1] = temp
+arr = [2,4,8,16]
+print("Swap with its immediate neighbor element")
+swap(arr)
+print(arr)
+
+#-----------------------PartD-----------------------#
+#DIVIDE AND CONQUER:
+def swap(arr, p, r):
+    if p == r:
+        arr[p], arr[p + 1] = arr[p + 1], arr[p]
+    else:
+        q = (p+r) // 2
+        swap(arr, p, q)
+        swap(arr, q+1, r)
+arr = [2,4,8,16]
+print("Swap with its immediate neighbor element with divide and conquer:")
+swap(arr,0,2)
+print(arr)
