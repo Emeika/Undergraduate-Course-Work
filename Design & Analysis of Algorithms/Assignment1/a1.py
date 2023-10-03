@@ -1,35 +1,33 @@
 #-----------------------PartA-----------------------#
 #BRUTE FORCE:
 def alter(Arr, n):
-
     fifth = n // 5
-    for i in range(fifth):
+    for i in range(n):
         if Arr[i] % 2 == 0:
             Arr[i] =  Arr[i] + 3
+    for i in range(fifth):
         if i % 2 == 1:
             Arr[i] = Arr[i] + 2
     return Arr
 print("add 3 in all even numbers and add 2 in all odd indices in the first 1/5th elements: ")
-lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11]
+lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,11]
 print(alter(lit, len(lit)))
 #-----------------------PartA-----------------------#
 #DIVIDE AND CONQUER:
-def alter(Arr, p, r):
+def alter(Arr, p, r,size):
     if p==r:
         if Arr[p] % 2 == 0:
             Arr[p] =  Arr[p] + 3
-        if p % 2 == 1:
+        if (p % 2 == 1) and (p < size/5):
             Arr[p] = Arr[p] + 2
     else:
         mid = (p + r)//2
-        alter(Arr, p, mid)
-        alter(Arr, mid+1, r)
+        alter(Arr, p, mid, size)
+        alter(Arr, mid+1, r, size)
     return Arr
-lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11]
-fifth = (0 + 30)// 5
+lit = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,11]
 print("add 3 in all even numbers and add 2 in all odd indices in the first 1/5th elements: ")
-print(alter(lit, 0, fifth))
-
+print(alter(lit, 0, len(lit)-1, len(lit)))
 #-----------------------PartB-----------------------#
 #BRUTE FORCE:
 def calc_sum(arr):

@@ -7,31 +7,30 @@ Part A: Design an algorithm to add 3 (+3 units) in all even numbers and to add 2
 in all odd indices in the first 1/5th elements of the given n integer list.
 -----------------------------------------------------------------------------------------------
 BRUTE FORCE:
-alter(Arr[1.....n])
+void alter(Arr[1.....n])
 
   fifth = n / 5
-  for i: 1.....fifth
+  for i: 1....n
     if Arr[i] mod 2 == 0
         Arr[i] =  Arr[i] + 3
+  for i: 1.....fifth
     if i mod 2 == 1
         Arr[i] = Arr[i] + 2
 
 -----------------------------------------------------------------------------------------------
 DIVIDE AND CONQUER:                               recurrence relation: T(n) = T(n/2) + T(n/2) +  1
                                                                             =  2T(n/2) + 1
-void alter(Arr[1.....n], p, r)                             
+void alter(Arr[1.....n], p, r,size)                             
   if p==r
     if Arr[p] mod 2 == 0
         Arr[p] =  Arr[p] + 3
-    if p mod 2 == 1
+    if p mod 2 == 1 and (p < size/5)
         Arr[p] = Arr[p] + 2
   else
     mid = floor((p + r)/2)
-    alter(Arr[1..n], p, mid)
-    alter(Arr[1..n], mid+1, r)
+    alter(Arr[1..n], p, mid,size)
+    alter(Arr[1..n], mid+1, r,size)
 
-fifth = floor((start + end)/ 5)
-function call <--- alter(Arr[1..n], start, fifth)
 
 ##############################################################################################
 
@@ -58,7 +57,7 @@ returnValue calcSum (Temp[1...n], p, r )
   else
 
   mid1 = floor (( p + (r-p) )/3)      
-  mid2 = floor (( p + 2 * (r-p) )/3)     
+  mid2 = floor (mid1 * 2)
 
   chunk1 <-- calcSum(Temp,p,mid1)
   chunk2 <-- calcSum(Temp,mid1+1,mid2)
