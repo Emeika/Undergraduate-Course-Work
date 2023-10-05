@@ -6,16 +6,16 @@ COMP303 - B
 
 #include <iostream>
 
-void merge(int arrA[], int start, int div1, int div2, int end)
+void merge(int arrA[], int p, int mid1, int mid2, int r)
 {
-    int tempArr[end - start + 1];
+    int tempArr[r - p + 1];
 
-    int i = start;
-    int j = div1;
-    int k = div2;
+    int i = p;
+    int j = mid1;
+    int k = mid2;
     int l = 0;
 
-    while ((i < div1) && (j < div2) && (k <= end))
+    while ((i < mid1) && (j < mid2) && (k <= r))
     {
         if (arrA[i] < arrA[j])
         {
@@ -41,7 +41,7 @@ void merge(int arrA[], int start, int div1, int div2, int end)
         }
     }
 
-    while (i < div1 && j < div2)
+    while (i < mid1 && j < mid2)
     {
         if (arrA[i] < arrA[j])
         {
@@ -53,7 +53,7 @@ void merge(int arrA[], int start, int div1, int div2, int end)
         }
     }
 
-    while (j < div2 && k <= end)
+    while (j < mid2 && k <= r)
     {
         if (arrA[j] < arrA[k])
         {
@@ -65,7 +65,7 @@ void merge(int arrA[], int start, int div1, int div2, int end)
         }
     }
 
-    while (i < div1 && k <= end)
+    while (i < mid1 && k <= r)
     {
         if (arrA[i] < arrA[k])
         {
@@ -77,32 +77,32 @@ void merge(int arrA[], int start, int div1, int div2, int end)
         }
     }
 
-    while (i < div1)
+    while (i < mid1)
         tempArr[l++] = arrA[i++];
 
-    while (j < div2)
+    while (j < mid2)
         tempArr[l++] = arrA[j++];
 
-    while (k <= end)
+    while (k <= r)
         tempArr[l++] = arrA[k++];
 
-    for (i = start; i <= end; i++)
+    for (i = p; i <= r; i++)
     {
-        arrA[i] = tempArr[i - start];
+        arrA[i] = tempArr[i - p];
     }
 }
 
-void mergeSort(int arrA[], int start, int end)
+void mergeSort(int arrA[], int p, int r)
 {
-    if (start < end)
+    if (p < r)
     {
-        int div1 = start + (end - start) / 3;
-        int div2 = start + 2 * (end - start) / 3;
+        int mid1 = p + (r - p) / 3;
+        int mid2 = p + 2 * (r - p) / 3;
 
-        mergeSort(arrA, start, div1);
-        mergeSort(arrA, div1 + 1, div2);
-        mergeSort(arrA, div2 + 1, end);
-        merge(arrA, start, div1, div2, end);
+        mergeSort(arrA, p, mid1);
+        mergeSort(arrA, mid1 + 1, mid2);
+        mergeSort(arrA, mid2 + 1, r);
+        merge(arrA, p, mid1, mid2, r);
     }
 }
 
