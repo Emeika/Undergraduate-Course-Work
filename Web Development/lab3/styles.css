@@ -39,7 +39,7 @@ nav {
   transition: opacity 0.2s ease-in-out 0s;
 }
 
-.btn-signup{
+.btn-white{
   border-radius: 18px;
   font-size: 14px;
   font-weight: 700;
@@ -52,7 +52,7 @@ nav {
   text-align: center;
 }
 
-.btn-signup:hover {
+.btn-white:hover {
   box-shadow: rgb(148, 156, 153) 0px 2px 4px;
   transition: background-color 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
   color: #5CE5B4;
@@ -61,6 +61,7 @@ nav {
 
 .container-fluid {
   height: 100%;
+  max-width: 100%;
   background-color: #5CE5B4;
 
 }
@@ -81,7 +82,7 @@ nav {
   text-align: left;
 }
 
-.btn-signup-col {
+.btn-white-signup {
   border-radius: 18px;
   font-size: 14px;
   font-weight: 700;
@@ -93,7 +94,7 @@ nav {
   text-align: center;
 }
 
-.btn-signup-col:hover {
+.btn-white-signup:hover {
   box-shadow: rgb(148, 156, 153) 0px 2px 4px;
   transition: background-color 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
   color: #5CE5B4;
@@ -109,16 +110,6 @@ nav {
 .row-2nd {
   margin: -40px 0px 20px 100px;
 }
-
-@keyframes bounce {
-  0%, 100% {
-    bottom: -120px;
-  }
-  50% {
-    bottom: -80px;
-  }
-}
-
 
 .badge {
   border-radius: 18px;
@@ -185,3 +176,46 @@ nav {
   margin-top: 20px;
   margin-bottom: 190px;
 }
+
+
+.h1 {
+  font-size: 32px;
+  line-height: 37px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 500;
+  font-stretch: 100%;
+  text-align: left;
+}
+
+.btn-green {
+  border-radius: 25px;
+  margin-top: 30px;
+  background-color: #5CE5B4;
+  color: white;
+  font-size: 14px;
+  line-height: 36px;
+  font-weight: 700;
+  text-align: center;
+  padding:0px 30px 0px 30px
+}
+
+.btn-green:hover {
+  box-shadow: rgb(148, 156, 153) 0px 2px 4px;
+  transition: background-color 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
+  color: white;
+
+}
+
+.container-fluid .h3 {
+  font-size: 13px;
+  line-height: 26px;
+  font-weight: 700;
+
+}
+
