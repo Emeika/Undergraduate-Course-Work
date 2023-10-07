@@ -1,10 +1,10 @@
 body {
   font-family: "Raleway", sans-serif;
 }
-nav  {
+
+nav {
   background-color: #5CE5B4;
   font-size: 14px;
-  
 }
 
 .navbar-brand {
@@ -59,26 +59,29 @@ nav  {
 
 }
 
-.container {
-  padding: 95px 0px 0px 120px; 
-  margin: 0px;
+.container-fluid {
+  height: 100%;
   background-color: #5CE5B4;
+
 }
 
-.container .row .col-auto .h1 {
+.container-fluid .row-1st .col-auto .h1 {
+  margin: 145px 100px 0px;
   font-size: 32px;
   line-height: 48px;
   font-weight: 700;
   text-align: left;
 }
-.container .row .col-auto .h2 {
+.container-fluid .row-1st .col-auto .h2 {
+  margin: 0px 20px 0px 100px;
+  padding:0px;
   font-size: 18px;
   line-height: 30px;
-  font-weight: 550;
+  font-weight: 500;
   text-align: left;
 }
 
-.container .btn-signup-col {
+.btn-signup-col {
   border-radius: 18px;
   font-size: 14px;
   font-weight: 700;
@@ -86,7 +89,6 @@ nav  {
   color: #5CE5B4;
   background-color: white;
   width: 150px;
-  margin: 4.5px 12px;
   padding: 0px;
   text-align: center;
 }
@@ -98,8 +100,88 @@ nav  {
 
 }
 
-.container .link-light {
+.container-fluid .link-light {
   font-size: 14px;
   font-weight: 600;
   line-height: 16px;
+  padding:20px;
+}
+.row-2nd {
+  margin: -40px 0px 20px 100px;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    bottom: -120px;
+  }
+  50% {
+    bottom: -80px;
+  }
+}
+
+
+.badge {
+  border-radius: 18px;
+  background-color: #4DC097;
+  line-height: 14px;
+  padding: 10px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: 100%;
+  position: relative;
+  
+  animation: bounce 1s infinite alternate;
+
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.triangle {
+  position: absolute;
+  bottom: -120px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #4DC097;
+  animation: bounce 1s infinite alternate;
+}
+
+.image-container {
+  margin-top: -50px; /* Adjust the value to bring the image closer to the badge */
+}
+
+.row-4th .badge{
+  margin-top: 150px;
+}
+
+.row-4th .triangle {
+  bottom: -505px;
+}
+
+.row-5th {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 600;
+  font-stretch: 100%;
+  text-decoration: rgb(255, 255, 255);
+  text-align: center;
+
+}
+
+.row-5th .sneakpeak {
+  margin-top: 100px;
+}
+.row-5th .btn {
+  margin-top: 20px;
+  margin-bottom: 190px;
 }

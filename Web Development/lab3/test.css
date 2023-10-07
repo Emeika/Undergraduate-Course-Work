@@ -1,0 +1,17 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .half-white {
+    height: 100%;
+    background-color: black;
+    border-right: 2px solid green; /* Add border for edge */
+  }
+  
+  .half-green {
+    height: 100%;
+    background-color: green;
+    padding:50px;
+  }
+  
