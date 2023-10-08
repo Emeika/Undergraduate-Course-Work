@@ -64,22 +64,22 @@ body {
     line-height: 37px;
     font-weight: 700;
     text-align: left;
-  }
+}
 
-  .text {
-    font-size: 15px;
-    line-height: 24px;
-    font-weight: 500;
-    font-stretch: 100%;
-    text-align: left;
-  }
+.text {
+font-size: 15px;
+line-height: 24px;
+font-weight: 500;
+font-stretch: 100%;
+text-align: left;
+}
 
-  .container-fluid .h3 {
-    font-size: 13px;
-    line-height: 26px;
-    font-weight: 700;
-  
-  }
+.container-fluid .h3 {
+font-size: 13px;
+line-height: 26px;
+font-weight: 700;
+
+}
 
 /* Switch slider styles */
 .form-check .form-check-input {
@@ -88,18 +88,34 @@ body {
     background-color: #5CE5B4;
     box-shadow: none;
     
-  }
-  
-  .form-check .form-check-input:checked {
-    background-color: #5CE5B4;
-  }
+}
+
+.form-check .form-check-input:checked {
+background-color: #5CE5B4;
+}
 
 
-    .pricing-card {
-        transition: all 0.3s ease-in-out;
-    }
+.pricing-card {
+    transition: all 0.3s ease-in-out;
+}
 
-    .pricing-card:hover {
-        border: 2px solid #00FF00; /* Green border */
-        background-color: white; /* Light green background */
-    }
+.pricing-card:hover {
+    border: 2px solid #00FF00; /* Green border */
+    background-color: white; /* Light green background */
+}
+
+.text-hello {
+    color: #5CE5B4;
+    font-weight: bold;
+    font-size: 60px;
+    text-align: left;
+    line-height: 90px;
+    font-weight: 700;
+    text-align: start;
+}
+
+.vertical-line {
+    border-left: 2px solid black; /* Change the color and width as needed */
+    height: 100%; /* Adjust the height to match the content height */
+    margin: 0 15px; /* Adjust the margin to control spacing */
+}
