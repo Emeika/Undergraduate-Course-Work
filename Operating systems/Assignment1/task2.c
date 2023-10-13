@@ -1,8 +1,3 @@
-// Course Code: 301-B
-// Name: Hafsah Shahbaz
-// Roll Number: 251684784
-// Due Date: 16/10/2023
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
