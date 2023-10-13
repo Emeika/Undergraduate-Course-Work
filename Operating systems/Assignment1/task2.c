@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
 {
     if (argc != 3) // if both filename and process count not given as arguments
     {
-        fprintf(stderr, "Usage: %s filename num_process\n", argv[0]);
-        return EXIT_FAILURE;
+        fprintf(stderr, "Usage: %s filename num_process\n", argv[0]); // standard error stream
+        return EXIT_FAILURE;                                          // // Return indicating an error (1)
     }
 
     char *file = argv[1];
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
         FILE *output_file = fopen(output_filename, "r"); // Open the output file for reading
 
         int count;
-        fscanf(output_file, "%d", &count);
+        fscanf(output_file, "%d", &count); // read word count from the file into count variable
         fclose(output_file);
 
         printf("Child %d with pid %d: %d words\n", i + 1, getpid(), count);
