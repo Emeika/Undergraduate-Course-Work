@@ -1,0 +1,159 @@
+/* Style the video: 100% width and height to cover the entire window */
+/* #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+} */
+
+body {
+    background-image: url("mosiac.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+        background-size: 50% auto;
+        background-attachment: fixed;
+        background-color: #D7B02D;
+    
+
+    /* Sets the image size to 45% of the width and auto height */
+}
+.navbar {
+    background-color: rgba(255, 105, 180, 0.2);
+    /* Pinkish glow for the navbar */
+    backdrop-filter: blur(10px);
+    /* Optional: Adds a blur effect */
+}
+
+ /* Add some content at the bottom of the video/page */
+
+.hello {
+    display: flex;
+    align-items: center;
+    /* Center vertically */
+    justify-content: flex-start;
+    /* Align to the left horizontally */
+    height: 100vh;
+    /* Set height to 100% of the viewport height */
+    box-shadow: 0 0 30px rgba(88, 243, 94, 20);
+}
+
+.container-fluid.content {
+    position: relative;
+    z-index: 1;
+    /* Ensure content is on top of the video */
+}
+
+.glow {
+    color: #fff;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+.card {
+    width: 500px;
+    height: 300px;
+    border-radius: 40px;
+    perspective: 1000px;
+background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(150, 150, 150, 0.1));    z-index: 1;
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.999s;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+
+.card-front {
+    background-color: #D41467;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    justify-content: center;
+    text-align: left;
+    font-size: 70px;
+    transform: rotateY(0deg);
+    font-family: "Lucida Console", "Courier New", monospace !important;
+}
+
+.card-back {
+    padding: 30px;
+    background-color: #0F8C92;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    border: 10px solid #0F8C92;
+    border-radius: 40px;
+    justify-content: center;
+    font-size: 24px;
+    transform: rotateY(180deg);
+    font-family: "Lucida Console", "Courier New", monospace !important;
+}
+.card-back .intro {
+    font-size: 14px;
+    line-height: 1.5;
+    align-items: center;
+
+}
+
+button {
+    width: 165px;
+    height: 62px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 17px;
+    border-radius: 1rem;
+    border: none;
+    position: relative;
+    background: #100720;
+    transition: 0.1s;
+}
+
+button::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius:20px ;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(255, 94, 247, 1) 17.8%, rgba(2, 245, 255, 1) 100.2%);
+    filter: blur(5px);
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+button:active {
+    transform: scale(0.9) rotate(3deg);
+    background: radial-gradient(circle farthest-corner at 10% 20%, rgba(255, 94, 247, 1) 17.8%, rgba(2, 245, 255, 1) 100.2%);
+    transition: 0.5s;
+}

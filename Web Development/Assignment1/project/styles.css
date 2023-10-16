@@ -1,0 +1,42 @@
+.navbar {
+    background-color: rgba(255, 105, 180, 0.2);
+    /* Pinkish glow for the navbar */
+    backdrop-filter: blur(10px);
+    /* Optional: Adds a blur effect */
+}
+
+body {
+    background-image: url(bg.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Set the desired width, keeping the height the same */
+        background-size: 100% auto;
+}
+
+.nav-pills .nav-link {
+    color: #fff;
+    /* Text color */
+    background-color: #007BFF;
+    /* Button color */
+    border-radius: 30;
+    margin-bottom: 2px;
+    /* Adjust spacing between buttons */
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #0056b3;
+    /* Hover color */
+}
+
+.nav-pills .nav-link.active {
+    background-color: #0056b3;
+    /* Active button color */
+}
+
+/* Adjust positioning */
+.navbar.navbar-fixed {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}

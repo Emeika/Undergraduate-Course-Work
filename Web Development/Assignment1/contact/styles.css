@@ -1,0 +1,51 @@
+body {
+    background-color: #273252;
+    background-image: url(mosiacbg1.jpeg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 50% auto;
+    background-attachment: fixed;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+    
+}
+@media (max-width: 867px) {
+    body {
+        background-size: 100% auto;
+    }
+}
+
+.navbar {
+    background-color: rgba(243, 173, 208, 0.1);
+    /* Pinkish glow for the navbar */
+    backdrop-filter: blur(10px);
+    /* Optional: Adds a blur effect */
+}
+
+.nav-pills .nav-link {
+    color: #fff;
+    /* Text color */
+    background-color: #007BFF;
+    /* Button color */
+    border-radius: 30;
+    margin-bottom: 2px;
+    /* Adjust spacing between buttons */
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #0056b3;
+    /* Hover color */
+}
+
+.nav-pills .nav-link.active {
+    background-color: #0056b3;
+    /* Active button color */
+}
+
+/* Adjust positioning */
+.navbar.navbar-fixed {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
