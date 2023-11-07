@@ -1,0 +1,21 @@
+Question # 2: [1 mark] Consider Suppose you are choosing between the following 3
+algorithms:
+• Algorithm A solves the problem of size n by dividing it into 5 subproblems of size n/2,
+recursively solving each subproblem, and then combining the solutions in linear time.
+• Algorithm B solves the problem of size n by recursively solving two subproblems of size
+n − 1 and then combining the solutions in constant time.
+• Algorithm C solves the problem of size n by dividing it into nine subproblems of size n/3,
+recursively solving each subproblem, and then combining the solutions in O(n2) time.
+What are the running times of each algorithm and which would you choose and why?
+
+
+
+A - 5 T(n/2) + n
+
+B - 2 T(n-2) + 1
+
+C - 9 T(n/3) + n^2
+
+
+I choose Algorithm A because it has the smallest exponent in its time complexity as data divided into 2 parts with 5 arms
+unlike the algorithm C which has n^2 and algorithm B where data input for recursive call is n-1

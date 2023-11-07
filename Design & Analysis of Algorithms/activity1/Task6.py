@@ -54,14 +54,14 @@ points = [Point3D(12, 5, 8), Point3D(21, 3, 6), Point3D(4, 7, 2),
 
 
 # Sort points based on y-coordinate
-points.sort(key=lambda point: point.y)
+points.sort(key=lambda point: point.x)
 
 
 
 s = Stack()
 
 for i in range(len(points)):
-    while s.is_not_empty() and s.top().x >= points[i].x and s.top().z >= points[i].z:
+    while s.is_not_empty() and s.top().y >= points[i].y and s.top().z >= points[i].z:
         s.pop()
     s.push(points[i])
 

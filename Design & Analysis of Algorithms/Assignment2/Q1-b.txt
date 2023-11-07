@@ -1,0 +1,88 @@
+[PART B] Solve the recurrence relation of sum_of_digits(..) and binary_Search(…)
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+
+def sum_of_digits(n):
+    if n < 10:
+        return n
+    else:
+        return n % 10 + sum_of_digits(n // 10)
+
+# Example usage:
+result = sum_of_digits(12345)
+print("Sum of digits:", result)
+#-----------------------------------Recurrence Relation---------------------------------#
+# T(n) = T(n//10) + 1
+
+First Iteration:
+T(n//10) +1
+T(  ) + 1                         n = n/10 in original eq
+                                  T(n//100) +1
+T(n//10^2) + 2                 
+
+Second Iteration:
+T(n//100) + 2 
+T(  ) + 2                         n = n/100 in original eq
+                                  T(n//1000) +1
+T(n//10^3) + 3
+
+We get: T(n//10^k) + k
+So, taking 10^k = n
+log10 (10^k) = log10 (n)
+k = log10 (n)
+
+Subsitution of k gives: T(n//10^ log10 (n) ) + log10 (n)
+which gives: T(1) + log10 (n)
+
+We know T(O) to be a O(1) operation, so:
+T(n) = O(1) + log10 (n) = O(logn) ===> Solved...
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+def binary_search(arr, target, low, high):
+    if low > high:
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return binary_search(arr, target, low, mid - 1)
+    else:
+        return binary_search(arr, target, mid + 1, high)
+
+# Example usage:
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+target = 6
+index = binary_search(arr, target, 0, len(arr) - 1)
+if index != -1:
+    print(f"Element {target} found at index {index}")
+else:
+    print(f"Element {target} not found in the array")
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n/2) + 1
+
+
+First Iteration:
+T(n/2) +1
+T(  ) + 1                         n = n/2 in original eq
+                                  T(n/4) +1
+T(n/4) + 2                 
+
+Second Iteration:
+T(n/4) + 2
+T(  ) + 2                         n = n/4 in original eq
+                                  T(n/8) +1
+T(n/8) + 3
+
+We get: T(n/ 2^k) + k
+So, taking 2^k = n
+log2 (2^k) = log2 (n)
+k = log2 (n)
+
+Subsitution of k gives: T(n/ 2^ log2 (n) ) + log2 (n)
+which gives: T(1) + log (n)
+
+We know T(O) to be a O(1) operation, so:
+T(n) = O(1) + log (n) = O(logn) ===> Solved...

@@ -1,0 +1,89 @@
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# Example usage:
+result = factorial(5)
+print("Factorial of 5 is", result)
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n-1) + 1
+
+def sum_of_digits(n):
+    if n < 10:
+        return n
+    else:
+        return n % 10 + sum_of_digits(n // 10)
+
+# Example usage:
+result = sum_of_digits(12345)
+print("Sum of digits:", result)
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n//10) + 1
+
+def binary_search(arr, target, low, high):
+    if low > high:
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return binary_search(arr, target, low, mid - 1)
+    else:
+        return binary_search(arr, target, mid + 1, high)
+
+# Example usage:
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+target = 6
+index = binary_search(arr, target, 0, len(arr) - 1)
+if index != -1:
+    print(f"Element {target} found at index {index}")
+else:
+    print(f"Element {target} not found in the array")
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n/2) + 1
+
+
+def gcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a % b)
+
+# Example usage:
+result = gcd(48, 18)
+print("GCD of 48 and 18 is", result)
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n-1) + 1
+
+def reverse_list(arr):
+    if len(arr) == 0:
+        return []
+    else:
+        return [arr[-1]] + reverse_list(arr[:-1])
+
+# Example usage:
+original_list = [1, 2, 3, 4, 5]
+reversed_list = reverse_list(original_list)
+print("Original List:", original_list)
+print("Reversed List:", reversed_list)
+
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n-1) + 1
+
+
+def is_palindrome(s):
+    s = s.replace(" ", "").lower()
+    if len(s) <= 1:
+        return True
+    elif s[0] == s[-1]:
+        return is_palindrome(s[1:-1])
+    else:
+        return False
+
+# Example usage:
+result = is_palindrome("A man a plan a canal Panama")
+print("Is it a palindrome?", result)
+#-----------------------------------Recurrence Relation---------------------------------#
+#T(n) = T(n-2) + 1

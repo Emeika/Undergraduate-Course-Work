@@ -1,0 +1,65 @@
+void DoingSomething(n);
+if (n == 1)
+    return n;
+return n * DoingSomething(n - 2); // T(n - 2)+1
+
+int i, j, k, n;
+for (k = 1; k <= n; k++)     // n
+    for (j = 1; j <= k; j++) // k
+        print(DoingSomething(n));   //n
+
+
+
+Therefore, the time complexity of the nested loops is O(n^2)
+However, inside the inner loop, has a time complexity of O(n).
+Therefore, the overall time complexity of your code is O(n^3)
+
+
+
+k 1           2         3           4      ................ n
+i 1times      2times    3times      4times ................ n 
+  ntimes      ntimes    ntimes      ntimes ................ n
+
+  1n          2n        3n          4n     ................ n * n
+
+  1n + 2n + 3n + 4n ....+ n*n
+n (1+2+3+4+....+n)
+
+n (  (n(n+1)) /2  +n)
+n(n^2)
+O(n^3) ===> Solved...
+
+
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+DoingSomething  Solved:
+# T(n - 2)+1
+
+First Iteration:
+T(n - 2)+1
+T(  ) + 1                         n = n-2 in original eq
+                                  T(n- 4) +1
+T(n-4) + 2
+
+Second Iteration:
+T(n-4) + 2
+T(  ) + 2                         n = n-4 in original eq
+                                  T(n-6) +1
+T(n-6) + 3
+
+Third Iteration:
+T(n-6) + 3
+T(  ) + 2                         n = n-6 in original eq
+                                  T(n-8) +1
+T(n-8) + 4
+
+
+We get: T(n - k) + k/2
+So, taking k = n-1 gives:
+
+T(n-(n-1) ) + (n-1)/2
+which gives: T(1) + (n-1)/2
+
+We know T(O) to be a O(1) operation, so:
+T(n) = O(1) + (n-1)/2 = O(n) ===> Solved...
