@@ -65,7 +65,7 @@ points.sort(key=lambda point: point.x)
 s = Stack()
 
 for i in range(len(points)):
-    while s.is_not_empty() and s.top().y <= points[i].y and s.top().z <= points[i].z:
+    while s.is_not_empty() and s.top().y >= points[i].y and s.top().z >= points[i].z:
         s.pop()
     s.push(points[i])
 
