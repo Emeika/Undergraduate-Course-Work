@@ -1,3 +1,7 @@
+from src.user_accounts import User, UserAccounts
+from src.book_catalog import Book, BookCatalog
+from src.order_history import Order, OrderHistory
+
 class RecommendationSystem:
     def __init__(self, user_accounts, book_catalog, order_history):
         self.user_accounts = user_accounts

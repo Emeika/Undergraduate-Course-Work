@@ -7,3 +7,8 @@ class Inventory:
             self.inventory[book.title] += quantity
         else:
             self.inventory[book.title] = quantity
+
+    def display_inventory(self):
+        print("\nCurrent Inventory:")
+        for title, quantity in self.inventory.items():
+            print(f"{title}: {quantity} in stock")

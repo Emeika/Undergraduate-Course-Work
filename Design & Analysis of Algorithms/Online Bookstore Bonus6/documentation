@@ -1,0 +1,40 @@
+Design choices:
+Book Catalog (book_catalog.py):
+Data Structure Choice: A dictionary (self.books) for storing books, and an instance of the Inventory class for managing inventory.
+Explanation:
+Dictionary: Allows efficient book retrieval based on the book title (key).
+Inventory Class: Uses a dictionary (self.inventory) to efficiently update and display book quantities.
+
+    User Accounts (user_accounts.py):
+        Data Structure Choice: A dictionary (self.users) for storing user details.
+        Explanation:
+            Dictionary: Enables efficient user retrieval based on the username (key). However, it might not be the most secure way to store user passwords in a real-world scenario.
+
+    Shopping Cart (shopping_cart.py):
+        Data Structure Choice: Linked list implemented through the Node class for representing the shopping cart.
+        Explanation:
+            Linked List: Allows for easy insertion and removal of items, making it suitable for a shopping cart where items can be added or removed dynamically.
+
+    Order History (order_history.py):
+        Data Structure Choice: File-based storage for order history. The Order class uses basic Python data types.
+        Explanation:
+            File Storage: Simple for implementation but may not be the most efficient for large-scale applications. The use of a database might be considered for better scalability and query capabilities.
+
+    Search and Filtering (search_and_filter.py):
+        Data Structure Choice: Binary search tree
+        Explanation:
+            Tree: Provides a more efficient search for titles compared to linear search, especially for larger datasets.
+
+Trade-offs and Considerations:
+
+    Book Catalog and User Accounts:
+        The use of dictionaries for quick access is suitable for these scenarios, considering the efficiency of key-based retrieval. Consideration could be given to more advanced data structures like hash maps.
+
+    Shopping Cart:
+        Linked lists are good for dynamic operations like adding and removing items. However, for very large carts, this may not be the most efficient choice. An array could be considered for a fixed-size cart.
+
+    Order History:
+        While file-based storage is simple, it may not scale well. Using a database could provide better performance and query capabilities.
+
+    Search and Filtering:
+        The addition of a binary search tree for title-based searches improves efficiency, especially for larger datasets.
