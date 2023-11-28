@@ -1,0 +1,40 @@
+Given an array of unsorted positive integers, find the closest value in that array to a
+given input number (say key). DP/Divide & conquer ?
+
+
+2 8 3 5 1 9 0
+
+3
+
+def closest_value_divide_conquer(arr, key):
+    if len(arr) == 1:
+        return arr[0]
+
+    mid = len(arr) // 2
+    left_closest = closest_value_divide_conquer(arr[:mid], key)
+    right_closest = closest_value_divide_conquer(arr[mid:], key)
+
+    if abs(left_closest - key) < abs(right_closest - key):
+        return left_closest
+    else:
+        return right_closest
+
+
+
+B: An n element array is filled with the results of a geometric progression. One element is
+missing in the progression, find the missing number. DP/Divide & conquer ?
+
+
+D: Find the value of continuous function F(n) = F(n/2 ^ n/3) + ceil (n/2) for first 100
+values. DP/Divide & conquer ?
+def F(n, memo):
+    if n == 0:
+        return 0
+
+    if n not in memo:
+        memo[n] = F(n // 2** (n // 3), memo) + math.ceil(n / 2)
+
+    return memo[n]
+
+
+E: Find the first unique (not duplicated) element in a sorted array. DP/Divide & conquer?
