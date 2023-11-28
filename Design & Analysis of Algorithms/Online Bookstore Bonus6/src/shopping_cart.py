@@ -32,8 +32,19 @@ class ShoppingCart:
                 return
             current = current.next
 
+    def iterate_shopping_cart(self):
+        current = self.head
+        while current:
+            yield current.book
+            current = current.next
+
     def display_cart(self):
+        if not self.head:
+            print("Cart is empty")
         current = self.head
         while current:
             print(f"{current.book.title} by {current.book.author}")
             current = current.next
+        
+    def clear_cart(self):
+        self.head = None

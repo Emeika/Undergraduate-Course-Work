@@ -3,7 +3,6 @@ class User:
         self.username = username
         self.password = password
         self.email = email
-        self.purchase_history = []
 
 class UserAccounts:
     def __init__(self):
@@ -13,4 +12,4 @@ class UserAccounts:
         self.users[user.username] = user
 
     def get_user_details(self, username):
-        return self.users.get(username, None)
+        return self.users.get(username)
