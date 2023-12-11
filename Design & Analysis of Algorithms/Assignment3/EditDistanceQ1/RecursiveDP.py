@@ -31,8 +31,8 @@ def edit_distance(r, c, dp, source, target):
 
 
 def main():
-    source = "MATHS"
-    target = "ARTS"
+    source = "intention"
+    target = "execution"
     row = len(source) +1
     col = len(target) +1
     counter_r = 0
@@ -48,17 +48,24 @@ def main():
         counter_c += 1
 
     # Print the initialized 2D array
+    print("Original array:")
     for r in dp:
         print(r)
 
-    print("\n")
+    print(f"\nEdit distance to convert {source} to {target}")
 
     edit_distance(row-1, col-1, dp, source, target)
 
     for r in dp:
         print(r)
-    print("Edit distance:",dp[row - 1][col - 1])
-
+    
+    print("\nEdit distance:",dp[row - 1][col - 1])
+    print("\n")
 
 if __name__ == '__main__':
     main()
+
+
+
+
+# Space complexity : O(mn)
