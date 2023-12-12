@@ -1,0 +1,55 @@
+/* styles.css */
+
+body {
+  margin: 0;  
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  margin-left: 80px;
+  
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  
+}
+
+li {
+  margin-bottom: 10px;
+  max-width: 500px;
+  padding: 10px;
+  background-color: rgba(218, 209, 209, 0.199);
+  border-radius: 20px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+input {
+  padding: 8px;
+  border-radius: 20px;
+  border: 10px;
+  margin-right: 20px;
+}
+
+p {
+  background-color: rgba(218, 209, 209, 0.199);
+  border-radius: 20px;
+  max-width: 500px;
+  margin-bottom: 50px;
+}
+
+/* Add more styles as needed */
