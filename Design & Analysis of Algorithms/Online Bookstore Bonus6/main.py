@@ -31,10 +31,10 @@ def main():
     book_catalog.add_book(book5)
 
     # Adding sample users
-    user1 = User("Hafsah", "password123", "john@example.com")
-    user2 = User("jane_smith", "qwerty456", "jane@example.com")
+    user1 = User("Hafsah", "password123", "hafsah@gmail.com")
+    #user2 = User("sam", "qwerty456", "sam@gmail.com")
     user_accounts.add_user(user1)
-    user_accounts.add_user(user2)
+    #user_accounts.add_user(user2)
 
     while True:
         print("\nOptions:")
@@ -106,14 +106,14 @@ def main():
 
             if search_choice == "1":
                 author = input("Enter author name: ")
-                books_by_author = BookSearch(book_catalog).search_by_author(author)
+                books_by_author = book_search.search_by_author(author)
                 print("\nBooks by", author + ":")
                 for book in books_by_author:
                     print(f"{book.title} by {book.author}")
 
             elif search_choice == "2":
                 genre = input("Enter genre: ")
-                books_by_genre = BookSearch(book_catalog).search_by_genre(genre)
+                books_by_genre = book_search.search_by_genre(genre)
                 print("\nBooks in", genre + " genre:")
                 for book in books_by_genre:
                     print(f"{book.title} by {book.author}")

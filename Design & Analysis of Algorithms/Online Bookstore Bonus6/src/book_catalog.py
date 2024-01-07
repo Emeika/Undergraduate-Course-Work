@@ -6,7 +6,7 @@ class Book:
         self.author = author
         self.genre = genre
         self.price = price
-        self.availability = availability
+        self.availability = availability  # composition
 
 class BookCatalog:
     def __init__(self):
@@ -21,7 +21,7 @@ class BookCatalog:
         if title in self.books:
             removed_book = self.books[title]
             del self.books[title]
-            self.inventory.update_inventory(removed_book, -removed_book.availability)
+            self.inventory.update_inventory(removed_book, -removed_book.availability) # inventory class
 
     def remove_book(self, title): # purchase made single copy sold
         if title in self.books:

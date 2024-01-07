@@ -6,7 +6,7 @@ class RecommendationSystem:
     def __init__(self, user_accounts, book_catalog, order_history):
         self.user_accounts = user_accounts
         self.book_catalog = book_catalog
-        self.order_history = order_history
+        self.order_history = order_history # association
 
     def recommend_books(self, username, num_recommendations=3):
         """

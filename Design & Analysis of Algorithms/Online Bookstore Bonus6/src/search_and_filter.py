@@ -34,7 +34,7 @@ class BinarySearchTree:
 
 class BookSearch:
     def __init__(self, book_catalog):
-        self.book_catalog = book_catalog
+        self.book_catalog = book_catalog  # association
         self.title_tree = BinarySearchTree()
         for book in self.book_catalog.books.values():
             self.title_tree.insert(book)

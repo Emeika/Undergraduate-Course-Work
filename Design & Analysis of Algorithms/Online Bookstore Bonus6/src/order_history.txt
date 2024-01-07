@@ -1,3 +1,4 @@
 2023-11-28 23:33:30.652148 | Hafsah | Total Price: 27.98 | Items: Dark, 1984
 2023-11-28 23:44:01.428275 | Hafsah | Total Price: 12.99 | Items: Dark
 2023-11-28 23:47:45.491102 | Hafsah | Total Price: 12.99 | Items: Dark
+2023-12-26 23:01:41.201897 | Hafsah | Total Price: 15.99 | Items: The Catcher in the Rye
