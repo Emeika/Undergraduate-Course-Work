@@ -31,8 +31,8 @@ def edit_distance(r, c, dp, source, target):
 
 
 def main():
-    source = "intention"
-    target = "execution"
+    source = "MATHS"
+    target = "ARTS"
     row = len(source) +1
     col = len(target) +1
     counter_r = 0

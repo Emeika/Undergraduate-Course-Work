@@ -44,3 +44,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# space complexity : O(n*m)
