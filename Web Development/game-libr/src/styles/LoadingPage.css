@@ -1,0 +1,53 @@
+/* src/components/LoadingPage.css */
+.loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #190a02;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.smoke-animation {
+    justify-content: flex-end;
+        /* Move content to the bottom */
+    align-items: flex-end;
+        /* Move content to the bottom */
+    width: 100vw;
+    /* 100% of the viewport width */
+    height: auto;
+    position: absolute;
+    bottom: 0;
+}
+.middle-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.middle-image img {
+    width: 20%;
+    /* Adjust the size as needed */
+    height: 50%;
+}
+
+.overlay-image {
+    position: absolute;
+}
+
+.overlay-image img {
+    width: 100px;
+    /* Adjust the size as needed */
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

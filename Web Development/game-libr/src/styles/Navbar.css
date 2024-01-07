@@ -1,0 +1,27 @@
+.navbar-custom {
+    background-image: url('/public/assets/navbar-bg.png');
+    /* Set the background image path */
+    background-size: cover;
+        /* Adjust the background size */
+        background-position: center;
+    /* Center the background image */
+    background-repeat: no-repeat;
+    height: 11vh;
+    font-family: 'Cormorant SC', bold;
+}
+
+.Container {
+    height: 100%;
+}
+
+
+.navbar-custom .nav-link {
+    color: #E8C483!important;
+    /* Golden color for nav links */
+}
+
+.navbar-custom .nav-link:hover {
+    color: #17a2b8 !important;
+    /* Dark cyan color on hover for nav links */
+}
+
