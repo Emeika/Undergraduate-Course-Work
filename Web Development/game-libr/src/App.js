@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import LoadingPage from './components/LoadingPage';
 import Navigation from './components/Navbar';
+import HomePage from './components/HomePage';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,7 @@ const App = () => {
       ) : (
         // Your main content goes here
         <div>
-          <h1>Your Game Library App</h1>
+          <HomePage />
           {/* Other components and content */}
         </div>
       )}

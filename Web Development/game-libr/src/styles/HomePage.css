@@ -1,0 +1,29 @@
+/* styles/HomePage.css */
+
+.home-container {
+    height: 100vh;
+    /* 100% of the viewport height */
+    display: flex;
+}
+
+.video-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.other-content {
+    flex: 1;
+    padding: 20px;
+    /* Add any other styles for the right half */
+}
+
+.icon-home {
+        width: 50%;
+            height: 50%;
+}
