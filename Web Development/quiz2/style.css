@@ -1,0 +1,59 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #283618;
+    color: #ffffff;
+    /* Light text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#quiz-container {
+    width: 40%;
+    margin: auto;
+    height: 50vh;
+    text-align: center;
+    padding: 100px;
+    background-color: #606c38;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    padding: 15px 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #faf4d3;
+    color: #283618
+    border: none;
+    border-radius: 25px;
+    /* Rounded corners */
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.7);
+    /* Box shadow for a subtle effect */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions */
+}
+
+button:hover {
+    background-color: #cc5500;
+    /* Darker orange on hover */
+    transform: scale(1.05);
+    /* Slightly enlarge on hover for an interactive feel */
+}
+
+/* Additional styles to hide Next and Restart buttons initially */
+#next-btn,
+#restart-btn {
+    display: none;
+}
