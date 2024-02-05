@@ -1,0 +1,11 @@
+The autocomplete functionality, powered by the readline library, enhances command history navigation, search, and editing. It dynamically generates autocomplete suggestions based on user input from both command history and file system paths.
+
+Furthermore, I've implemented GNU tab completion. This feature not only completes file and directory names but also extends its functionality to command history
+
+On the topic of file manipulation, I've incorporated file compression capabilities. Whether it's compressing with gzip, decompressing with gunzip, or creating and extracting zip archives, allowing compression and decomrpession of both files and folders
+
+Implemented custom commands like "sysinfo" and "psinfo" utilize the /proc filesystem to display real-time information about system processes. The "sysinfo" command dynamically updates system information every 5 seconds, showcasing the top processes consuming CPU and memory resources.
+
+Implemented signals which enable software interrupts, notifying processes of specific events. This includes the termination of the running process (Ctrl+C) and pausing a process and return to the shell prompt without termination (Ctrl+Z), enhancing user control and interaction in the shell environment.
+
+Job controls have beeen implemented. Background processes, denoted by '&', allow users to execute commands without waiting for completion. The shell achieves this by forking a new process, enabling continuous command entry. Job lists track and display background processes

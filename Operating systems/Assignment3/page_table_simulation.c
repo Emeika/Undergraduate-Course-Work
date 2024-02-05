@@ -1,3 +1,7 @@
+// Course Code: 301-B
+// Name: Hafsah Shahbaz
+// Roll Number: 251684784
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
