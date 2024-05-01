@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
             }
             line_count++;
             printf("%d: ", line_count);
-            
+
             is_empty_line = 1;
         } else {
             printf("%c", ch);
