@@ -1,0 +1,8 @@
+end:
+addi $t0, $11, 100
+lw $t2,($t3)
+beq $t4,$15,loop
+j end
+loop:
+andi $t6,$t7,8
+or $t7,$t2,$t1

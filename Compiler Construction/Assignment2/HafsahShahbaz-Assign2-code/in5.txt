@@ -1,0 +1,6 @@
+end:
+addi $t0, $t1, 10
+andi $t2, $t3, 20
+ori $t4, $t5, 30
+lw $t6,($t7)
+sw $t6,4($t7)
