@@ -1,0 +1,6 @@
+Outlook,Temperature,Humidity,Windy
+rainy,mild,normal,FALSE
+sunny,mild,normal,TRUE
+overcast,mild,high,TRUE
+overcast,hot,normal,FALSE
+rainy,mild,high,TRUE
