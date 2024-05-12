@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_table():
     # Connect to SQLite database
     conn = sqlite3.connect('users.db')
@@ -12,6 +13,7 @@ def create_table():
 
     conn.commit()
     conn.close()
+
 
 if __name__ == "__main__":
     create_table()
