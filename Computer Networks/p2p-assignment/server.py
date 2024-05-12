@@ -1,6 +1,7 @@
 # server.py
 import socket
 import threading
+import os
 import sqlite3
 
 clients = {}
@@ -18,26 +19,55 @@ def handle_client(client_socket, client_address):
 
         if data.startswith("login"):
             _, username, password = data.split()
+
             if authenticate_user(username, password):
                 clients[username] = client_socket
                 client_socket.sendall("Login successful!".encode('utf-8'))
+
             else:
                 client_socket.sendall(
                     "Invalid username or password.".encode('utf-8'))
+
         elif data.startswith("create_user"):
             _, username, password = data.split()
+
             if create_user(username, password):
                 client_socket.sendall(
                     "User created successfully!".encode('utf-8'))
+
             else:
                 client_socket.sendall(
                     "Failed to create user. Please try again.".encode('utf-8'))
+
         elif data.startswith("request_clients"):
             # Send list of currently connected clients
             client_socket.sendall(",".join(clients.keys()).encode('utf-8'))
+
         elif data.startswith("connect"):
             _, sender_username, recipient_username = data.split()
             establish_connection(sender_username, recipient_username)
+
+        elif data.startswith("file"):
+            file_path = data.split()[1]
+            broadcast_file(username, recipient_username, file_path)
+
+        elif data.startswith("msg"):
+            message_parts = data.split(' ', 2)
+            if len(message_parts) >= 3:
+                recipient_username = message_parts[1]
+                actual_message = message_parts[2]
+                broadcast_message(username, recipient_username, actual_message)
+            else:
+                print("Invalid message format.")
+        elif data == "quit":
+            print(
+                f"[{client_address}] Client requested to quit. Closing connection.")
+            client_socket.close()
+            del clients[client_address]
+            active_sessions = {
+                k: v for k, v in active_sessions.items() if k[0] != client_address}
+            break
+
         else:
             broadcast_message(username, recipient_username, data)
 
@@ -53,6 +83,19 @@ def broadcast_message(sender_username, recipient_username, message):
                     f"[{sender_username}]: {message}".encode('utf-8'))
             except Exception as e:
                 print(f"Error broadcasting message to {username}: {e}")
+
+
+def broadcast_file(sender_username, recipient_username, file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            file_data = file.read()
+            for username, client_socket in clients.items():
+                if username == recipient_username:
+                    client_socket.sendall(
+                        f"[{sender_username}] is sending a file: {os.path.basename(file_path)}".encode('utf-8'))
+                    client_socket.sendall(file_data)
+    except Exception as e:
+        print(f"Error broadcasting file to {recipient_username}: {e}")
 
 
 def establish_connection(sender_username, recipient_username):

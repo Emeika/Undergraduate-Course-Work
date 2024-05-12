@@ -2,14 +2,35 @@
 
 import socket
 import threading
+import os
 
 
 def receive_messages(client_socket):
     while True:
-        data = client_socket.recv(1024).decode('utf-8')
-        if not data:
+        try:
+            data = client_socket.recv(1024)
+            if not data:
+                print("[SERVER] Connection closed by server.")
+                break
+            print(data.decode('utf-8'))
+        except ConnectionAbortedError:
+            print("[CLIENT] Connection aborted by client.")
             break
-        print("[SERVER]", data)
+        except ConnectionResetError:
+            print("[CLIENT] Connection reset by client.")
+            break
+
+
+def send_file(client_socket, file_path):
+    file_name = os.path.basename(file_path)
+    client_socket.sendall(f"file {file_name}".encode('utf-8'))
+
+    with open(file_path, 'rb') as file:
+        while True:
+            chunk = file.read(1024)
+            if not chunk:
+                break
+            client_socket.sendall(chunk)
 
 
 def start_client():
@@ -56,6 +77,23 @@ def start_client():
         response = client_socket.recv(1024).decode('utf-8')
         print("Currently connected clients:", response)
 
+        # receive_thread = threading.Thread(
+        #     target=receive_messages, args=(client_socket,))
+        # receive_tshread.start()
+
+        # while True:
+        #     # Check if there is data to be read from the server
+        #     ready_to_read, _, _ = select.select([client_socket], [], [], 0.1)
+
+        #     # If there is data to be read, receive and display it
+        #     for sock in ready_to_read:
+        #         data = sock.recv(1024).decode('utf-8')
+        #         if not data:
+        #             print("[SERVER] Connection closed by server.")
+        #             client_socket.close()
+        #             return
+        #         print(data)
+
         while True:
             action = input(
                 "\nEnter\n'connect' to establish a direct connection with another user\n'view' to request currently connected clients\n'quit' to exit: ")
@@ -65,24 +103,51 @@ def start_client():
                     "Enter the username of the user you want to connect with: ")
                 connect_request = f"connect {username} {recipient_username}"
                 client_socket.sendall(connect_request.encode('utf-8'))
-                break
+
+                receive_thread = threading.Thread(
+                    target=receive_messages, args=(client_socket,))
+                receive_thread.start()
+
+                connected = True
+                while connected:
+                    communication_mode = input(
+                        "\nEnter 'msg' to send a message or 'file' to send a file: ")
+
+                    if communication_mode == 'msg':
+                        while True:
+                            message = input()
+                            if message == 'quit':
+                                connected = False
+                                client_socket.sendall("quit".encode('utf-8'))
+                                client_socket.close()
+                                break
+                            client_socket.sendall(message.encode('utf-8'))
+
+                    elif communication_mode == 'file':
+                        while True:
+                            file_path = input(
+                                "Enter the path of the file: ")
+                            if os.path.exists(file_path):
+                                send_file(client_socket, file_path)
+                                print("File sent successfully.")
+                                break
+                            else:
+                                print(
+                                    "File not found. Please enter a valid file path.")
+                    else:
+                        print(
+                            "Invalid communication mode. Please enter 'msg' or 'file'.")
+
             elif action == 'view':
                 client_socket.sendall("request_clients".encode('utf-8'))
                 response = client_socket.recv(1024).decode('utf-8')
                 print("Currently connected clients:", response)
             elif action == 'quit':
+                client_socket.sendall("quit".encode('utf-8'))
                 client_socket.close()
                 return
             else:
                 print("Invalid action.")
-
-        receive_thread = threading.Thread(
-            target=receive_messages, args=(client_socket,))
-        receive_thread.start()
-
-        while True:
-            message = input()
-            client_socket.sendall(message.encode('utf-8'))
 
     except ConnectionRefusedError:
         print("[CONNECTION ERROR] Connection refused. Make sure the server is running.")
