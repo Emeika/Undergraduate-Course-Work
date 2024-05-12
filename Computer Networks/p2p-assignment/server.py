@@ -9,6 +9,7 @@ active_sessions = {}  # Dictionary to store active chat sessions
 
 
 def handle_client(client_socket, client_address):
+    global active_sessions
     print(f"[NEW CONNECTION] {client_address} connected.")
 
     while True:
@@ -59,13 +60,32 @@ def handle_client(client_socket, client_address):
                 broadcast_message(username, recipient_username, actual_message)
             else:
                 print("Invalid message format.")
+
+        elif data == "disconnect":
+            print(
+                f"[{username}] Client requested to disconnect. Closing connection.")
+            for (sender, recipient), client_socket in active_sessions.items():
+                print(
+                    f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
+            print("After\n")
+            if active_sessions:
+                for key, _ in list(active_sessions.items()):
+                    if username in key:
+                        del active_sessions[key]
+            for (sender, recipient), client_socket in active_sessions.items():
+                print(
+                    f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
+
         elif data == "quit":
             print(
-                f"[{client_address}] Client requested to quit. Closing connection.")
+                f"[{username}] Client requested to quit. Closing connection.")
             client_socket.close()
-            del clients[client_address]
-            active_sessions = {
-                k: v for k, v in active_sessions.items() if k[0] != client_address}
+            if username in clients:
+                del clients[username]
+            if username in active_sessions:
+                del active_sessions[username]
+                active_sessions = {
+                    k: v for k, v in active_sessions.items() if k[0] != username}
             break
 
         else:
@@ -76,13 +96,14 @@ def handle_client(client_socket, client_address):
 
 
 def broadcast_message(sender_username, recipient_username, message):
-    for username, client_socket in clients.items():
-        if username == recipient_username:
+
+    for (sender, recipient), client_socket in active_sessions.items():
+        if sender == recipient_username:
             try:
                 client_socket.sendall(
                     f"[{sender_username}]: {message}".encode('utf-8'))
             except Exception as e:
-                print(f"Error broadcasting message to {username}: {e}")
+                print(f"Error broadcasting message to {recipient}: {e}")
 
 
 def broadcast_file(sender_username, recipient_username, file_path):
@@ -92,7 +113,7 @@ def broadcast_file(sender_username, recipient_username, file_path):
             for username, client_socket in clients.items():
                 if username == recipient_username:
                     client_socket.sendall(
-                        f"[{sender_username}] is sending a file: {os.path.basename(file_path)}".encode('utf-8'))
+                        f"FILE_TRANSFER:[{sender_username}] is sending a file: {os.path.basename(file_path)}".encode('utf-8'))
                     client_socket.sendall(file_data)
     except Exception as e:
         print(f"Error broadcasting file to {recipient_username}: {e}")
@@ -111,8 +132,7 @@ def establish_connection(sender_username, recipient_username):
         # Store active session
         active_sessions[(sender_username, recipient_username)] = (
             sender_socket)
-        active_sessions[(recipient_username, sender_username)] = (
-            recipient_socket)
+        # active_sessions[(recipient_username, sender_username)] = (recipient_socket)
 
         sender_socket.sendall(
             f"Connection established with {recipient_username}.".encode('utf-8'))
