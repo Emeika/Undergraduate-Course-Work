@@ -64,17 +64,18 @@ def handle_client(client_socket, client_address):
         elif data == "disconnect":
             print(
                 f"[{username}] Client requested to disconnect. Closing connection.")
-            for (sender, recipient), client_socket in active_sessions.items():
-                print(
-                    f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
-            print("After\n")
+            # for (sender, recipient), client_socket in active_sessions.items():
+            #     print(
+            #         f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
+            # print("After\n")
             if active_sessions:
                 for key, _ in list(active_sessions.items()):
                     if username in key:
+                        print("\n", active_sessions[key])
                         del active_sessions[key]
-            for (sender, recipient), client_socket in active_sessions.items():
-                print(
-                    f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
+            # for (sender, recipient), client_socket in active_sessions.items():
+            #     print(
+            #         f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
 
         elif data == "quit":
             print(
@@ -82,10 +83,11 @@ def handle_client(client_socket, client_address):
             client_socket.close()
             if username in clients:
                 del clients[username]
-            if username in active_sessions:
-                del active_sessions[username]
-                active_sessions = {
-                    k: v for k, v in active_sessions.items() if k[0] != username}
+
+            if active_sessions:
+                for key, _ in list(active_sessions.items()):
+                    if username in key:
+                        del active_sessions[key]
             break
 
         else:
@@ -122,6 +124,8 @@ def broadcast_file(sender_username, recipient_username, file_path):
 def establish_connection(sender_username, recipient_username):
     sender_socket = clients.get(sender_username)
     recipient_socket = clients.get(recipient_username)
+    print("sender_socket", sender_socket)
+    print("recipient_socket", recipient_socket)
 
     if sender_socket and recipient_socket:
         sender_socket.sendall(

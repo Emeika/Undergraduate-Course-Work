@@ -1,6 +1,8 @@
 import socket
 import threading
 import os
+# upon reconnecting with another client the connection isnt established
+# file saving
 
 
 def receive_messages(client_socket):
@@ -74,6 +76,10 @@ def start_client():
         response = client_socket.recv(1024).decode('utf-8')
         print("Currently connected clients:", response)
 
+        receive_thread = threading.Thread(
+            target=receive_messages, args=(client_socket,))
+        receive_thread.start()
+
         while True:
             action = input(
                 "Enter 'connect' to establish a direct connection, 'view' to see connected clients, or 'quit' to exit: ")
@@ -83,7 +89,38 @@ def start_client():
                     "Enter the username of the user you want to connect with: ")
                 connect_request = f"connect {username} {recipient_username}"
                 client_socket.sendall(connect_request.encode('utf-8'))
-                break
+                # break
+
+                while True:
+                    communication_mode = input(
+                        "\nEnter 'msg' to send a message or 'file' to send a file or 'quit' to disconnect: ")
+
+                    if communication_mode == 'msg':
+                        while True:
+                            message = input()
+                            if message == 'quit':
+                                break
+                            client_socket.sendall(message.encode('utf-8'))
+
+                    elif communication_mode == 'file':
+                        while True:
+                            file_path = input(
+                                "Enter the path of the file: ")
+                            if os.path.exists(file_path):
+                                send_file(client_socket, file_path)
+                                print("File sent successfully.")
+                                break
+                            else:
+                                print(
+                                    "File not found. Please enter a valid file path.")
+
+                    elif communication_mode == 'quit':
+                        client_socket.sendall("disconnect".encode('utf-8'))
+                        break
+
+                    else:
+                        print(
+                            "Invalid communication mode. Please enter 'msg' or 'file'.")
 
             elif action == 'view':
                 client_socket.sendall("request_clients".encode('utf-8'))
@@ -97,41 +134,6 @@ def start_client():
 
             else:
                 print("Invalid action.")
-
-        receive_thread = threading.Thread(
-            target=receive_messages, args=(client_socket,))
-        receive_thread.start()
-
-        while True:
-            communication_mode = input(
-                "\nEnter 'msg' to send a message or 'file' to send a file or 'quit' to disconnect: ")
-
-            if communication_mode == 'msg':
-                while True:
-                    message = input()
-                    if message == 'quit':
-                        break
-                    client_socket.sendall(message.encode('utf-8'))
-
-            elif communication_mode == 'file':
-                while True:
-                    file_path = input(
-                        "Enter the path of the file: ")
-                    if os.path.exists(file_path):
-                        send_file(client_socket, file_path)
-                        print("File sent successfully.")
-                        break
-                    else:
-                        print(
-                            "File not found. Please enter a valid file path.")
-
-            elif communication_mode == 'quit':
-                client_socket.sendall("disconnect".encode('utf-8'))
-                break
-
-            else:
-                print(
-                    "Invalid communication mode. Please enter 'msg' or 'file'.")
 
     except ConnectionRefusedError:
         print("[CONNECTION ERROR] Connection refused. Make sure the server is running.")
