@@ -124,8 +124,6 @@ def broadcast_file(sender_username, recipient_username, file_path):
 def establish_connection(sender_username, recipient_username):
     sender_socket = clients.get(sender_username)
     recipient_socket = clients.get(recipient_username)
-    print("sender_socket", sender_socket)
-    print("recipient_socket", recipient_socket)
 
     if sender_socket and recipient_socket:
         sender_socket.sendall(

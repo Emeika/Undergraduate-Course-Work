@@ -1,8 +1,8 @@
+
+# client.py
 import socket
 import threading
 import os
-# upon reconnecting with another client the connection isnt established
-# file saving
 
 
 def receive_messages(client_socket):
@@ -13,7 +13,24 @@ def receive_messages(client_socket):
                 print("[SERVER] Connection closed by server.")
                 break
             message = data.decode('utf-8')
-            print(message)
+            # print(message)
+
+            if message.startswith("FILE_TRANSFER:"):
+                # Received a file notification
+                file_info = message.split(": ")
+                file_name = file_info[1]
+                print(f"Received file: {file_name}")
+                save_path = input("Enter the path to save the file: ")
+                with open(save_path, 'wb') as file:
+                    while True:
+                        file_data = client_socket.recv(1024)
+                        if not file_data:
+                            break
+                        file.write(file_data)
+                print("File saved successfully.")
+            else:
+                print(data.decode('utf-8'))
+
         except ConnectionAbortedError:
             print("[CLIENT] Connection aborted by client.")
             break
