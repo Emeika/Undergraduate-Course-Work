@@ -1,5 +1,3 @@
-
-# client.py
 import socket
 import threading
 import os
@@ -13,20 +11,15 @@ def receive_messages(client_socket):
                 print("[SERVER] Connection closed by server.")
                 break
             message = data.decode('utf-8')
-            # print(message)
 
             if message.startswith("FILE_TRANSFER:"):
                 # Received a file notification
                 file_info = message.split(": ")
                 file_name = file_info[1]
-                print(f"Received file: {file_name}")
-                save_path = input("Enter the path to save the file: ")
-                with open(save_path, 'wb') as file:
-                    while True:
-                        file_data = client_socket.recv(1024)
-                        if not file_data:
-                            break
-                        file.write(file_data)
+                print(f"File '{file_name}' is being transferred.")
+                with open(f"C:\\Users\\shahb\\Downloads\\{file_name}", 'wb') as file:
+                    file_data = client_socket.recv(1024)
+                    file.write(file_data)
                 print("File saved successfully.")
             else:
                 print(data.decode('utf-8'))
@@ -106,17 +99,19 @@ def start_client():
                     "Enter the username of the user you want to connect with: ")
                 connect_request = f"connect {username} {recipient_username}"
                 client_socket.sendall(connect_request.encode('utf-8'))
-                # break
 
                 while True:
                     communication_mode = input(
                         "\nEnter 'msg' to send a message or 'file' to send a file or 'quit' to disconnect: ")
+                    client_socket.sendall(communication_mode.encode('utf-8'))
 
                     if communication_mode == 'msg':
                         while True:
                             message = input()
                             if message == 'quit':
                                 break
+
+                            message = f'msg {message}'
                             client_socket.sendall(message.encode('utf-8'))
 
                     elif communication_mode == 'file':

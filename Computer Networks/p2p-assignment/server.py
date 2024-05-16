@@ -1,4 +1,3 @@
-# server.py
 import socket
 import threading
 import os
@@ -14,8 +13,11 @@ def handle_client(client_socket, client_address):
 
     while True:
         data = client_socket.recv(1024).decode('utf-8')
+
         if not data:
             break
+
+        mode = data.split(' ')[0]
         print(f"[{client_address}] {data}")
 
         if data.startswith("login"):
@@ -49,33 +51,24 @@ def handle_client(client_socket, client_address):
             establish_connection(sender_username, recipient_username)
 
         elif data.startswith("file"):
-            file_path = data.split()[1]
-            broadcast_file(username, recipient_username, file_path)
+            if len(data) > 4:
+                file_path = data.split()[1]
+                broadcast_file(username, recipient_username, file_path)
 
-        elif data.startswith("msg"):
-            message_parts = data.split(' ', 2)
-            if len(message_parts) >= 3:
-                recipient_username = message_parts[1]
-                actual_message = message_parts[2]
-                broadcast_message(username, recipient_username, actual_message)
-            else:
-                print("Invalid message format.")
+        elif mode == "msg":
+            if len(data) > 3:
+                message = data[4:]
+                print(message)
+                broadcast_message(username, recipient_username, message)
 
         elif data == "disconnect":
             print(
                 f"[{username}] Client requested to disconnect. Closing connection.")
-            # for (sender, recipient), client_socket in active_sessions.items():
-            #     print(
-            #         f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
-            # print("After\n")
+
             if active_sessions:
                 for key, _ in list(active_sessions.items()):
                     if username in key:
-                        print("\n", active_sessions[key])
                         del active_sessions[key]
-            # for (sender, recipient), client_socket in active_sessions.items():
-            #     print(
-            #         f"Sender: {sender}, Recipient: {recipient}, Socket: {client_socket}")
 
         elif data == "quit":
             print(
@@ -89,9 +82,6 @@ def handle_client(client_socket, client_address):
                     if username in key:
                         del active_sessions[key]
             break
-
-        else:
-            broadcast_message(username, recipient_username, data)
 
     print(f"[DISCONNECTED] {client_address} disconnected.")
     client_socket.close()
@@ -112,13 +102,13 @@ def broadcast_file(sender_username, recipient_username, file_path):
     try:
         with open(file_path, 'rb') as file:
             file_data = file.read()
-            for username, client_socket in clients.items():
-                if username == recipient_username:
+            for (sender, recipient), client_socket in active_sessions.items():
+                if sender == recipient_username:
                     client_socket.sendall(
                         f"FILE_TRANSFER:[{sender_username}] is sending a file: {os.path.basename(file_path)}".encode('utf-8'))
                     client_socket.sendall(file_data)
     except Exception as e:
-        print(f"Error broadcasting file to {recipient_username}: {e}")
+        print(f"Error broadcasting file to {recipient}: {e}")
 
 
 def establish_connection(sender_username, recipient_username):
