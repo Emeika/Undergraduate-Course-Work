@@ -26,6 +26,7 @@ def handle_client(client_socket, client_address):
             if authenticate_user(username, password):
                 clients[username] = client_socket
                 client_socket.sendall("Login successful!".encode('utf-8'))
+                send_connected_clients()
 
             else:
                 client_socket.sendall(
@@ -52,13 +53,12 @@ def handle_client(client_socket, client_address):
 
         elif data.startswith("file"):
             if len(data) > 4:
-                file_path = data.split()[1]
-                broadcast_file(username, recipient_username, file_path)
+                file_info = data[5:]
+                broadcast_file(username, recipient_username, file_info)
 
         elif mode == "msg":
             if len(data) > 3:
                 message = data[4:]
-                print(message)
                 broadcast_message(username, recipient_username, message)
 
         elif data == "disconnect":
@@ -95,20 +95,32 @@ def broadcast_message(sender_username, recipient_username, message):
                 client_socket.sendall(
                     f"[{sender_username}]: {message}".encode('utf-8'))
             except Exception as e:
-                print(f"Error broadcasting message to {recipient}: {e}")
+                print(
+                    f"Error broadcasting message to {recipient_username}: {e}")
 
 
-def broadcast_file(sender_username, recipient_username, file_path):
+def send_connected_clients():
+    connected_clients_str = "CONNECTED_CLIENTS:" + ",".join(clients.keys())
+
+    for client_socket in clients.values():
+        try:
+            client_socket.sendall(connected_clients_str.encode('utf-8'))
+        except Exception as e:
+            print(f"Error sending connected clients: {e}")
+
+
+def broadcast_file(sender_username, recipient_username, file_info):
     try:
+        file_name, file_path = file_info.split(' ', 1)
         with open(file_path, 'rb') as file:
             file_data = file.read()
             for (sender, recipient), client_socket in active_sessions.items():
-                if sender == recipient_username:
+                if recipient == recipient_username:
                     client_socket.sendall(
-                        f"FILE_TRANSFER:[{sender_username}] is sending a file: {os.path.basename(file_path)}".encode('utf-8'))
+                        f"FILE_TRANSFER:[{sender_username}] is sending a file: {file_name}".encode('utf-8'))
                     client_socket.sendall(file_data)
     except Exception as e:
-        print(f"Error broadcasting file to {recipient}: {e}")
+        print(f"Error broadcasting file to {recipient_username}: {e}")
 
 
 def establish_connection(sender_username, recipient_username):

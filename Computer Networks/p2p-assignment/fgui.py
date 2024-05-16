@@ -13,6 +13,7 @@ class ChatClientGUI:
         self.username = ""
         self.client_socket = None
         self.logged_in = False
+        self.keep_update_running = True
         self.connected_clients = []
 
         self.create_widgets()
@@ -97,31 +98,52 @@ class ChatClientGUI:
 
     def show_connected_clients(self):
         self.master.withdraw()
-        connected_clients_window = tk.Toplevel(self.master)
-        connected_clients_window.title("Connected Clients")
+        self.connected_clients_window = tk.Toplevel(self.master)
+        self.connected_clients_window.title("Connected Clients")
 
-        self.listbox_clients = tk.Listbox(connected_clients_window)
+        self.listbox_clients = tk.Listbox(self.connected_clients_window)
         self.listbox_clients.pack(fill=tk.BOTH, expand=True)
 
         self.refresh_connected_clients()
 
         connect_button = tk.Button(
-            connected_clients_window, text="Connect", command=self.connect_with_client)
+            self.connected_clients_window, text="Connect", command=self.connect_with_client)
         connect_button.pack()
 
         back_button = tk.Button(
-            connected_clients_window, text="Back", command=self.back_to_main_window)
+            self.connected_clients_window, text="Back", command=self.back_to_main_window)
         back_button.pack()
+
+        threading.Thread(target=self.listen_for_updates).start()
 
     def refresh_connected_clients(self):
         self.client_socket.sendall("request_clients".encode('utf-8'))
         response = self.client_socket.recv(1024).decode('utf-8')
-        self.connected_clients = response.split(",")
+        if response.startswith("CONNECTED_CLIENTS:"):
+            self.connected_clients = response.split(":")[1].split(",")
+        else:
+            self.connected_clients = response.split(",")
+
         self.listbox_clients.delete(0, tk.END)
+
         for client in self.connected_clients:
             self.listbox_clients.insert(tk.END, client)
 
+    def listen_for_updates(self):
+        try:
+            while self.keep_update_running:
+                data = self.client_socket.recv(1024).decode('utf-8')
+                if not data:
+                    break
+                if data.startswith("CONNECTED_CLIENTS:"):
+                    self.connected_clients = data.split(":")[1].split(",")
+                    self.refresh_connected_clients()
+        except Exception as e:
+            messagebox.showerror("Error", f"Error receiving updates: {e}")
+
     def connect_with_client(self):
+        self.keep_update_running = False
+
         selected_index = self.listbox_clients.curselection()
         if not selected_index:
             messagebox.showerror("Error", "Please select a client.")
@@ -165,11 +187,12 @@ class ChatClientGUI:
                 # Received a file notification
                 file_info = message.split(": ")
                 file_name = file_info[1]
-                print(f"File '{file_name}' is being transferred.")
                 with open(os.path.join(downloads_folder, file_name), 'wb') as file:
                     file_data = self.client_socket.recv(1024)
                     file.write(file_data)
                 print("File saved successfully.")
+                # self.text_messages.insert(
+                #     tk.END, f"File received successfully saved to downloads: {file_name}" + "\n")
             else:
                 self.text_messages.insert(tk.END, message + "\n")
 
@@ -178,12 +201,15 @@ class ChatClientGUI:
         if message:
             self.client_socket.sendall(f'msg {message}'.encode('utf-8'))
             self.entry_message.delete(0, tk.END)
+            self.text_messages.insert(
+                tk.END, f"[{self.username}]: " + message + "\n")
 
     def send_file(self):
         file_path = tk.filedialog.askopenfilename()
         if file_path:
             file_name = os.path.basename(file_path)
-            self.client_socket.sendall(f'file {file_name}'.encode('utf-8'))
+            self.client_socket.sendall(
+                f'file {file_name} {file_path}'.encode('utf-8'))
 
             with open(file_path, 'rb') as file:
                 while True:
@@ -191,8 +217,11 @@ class ChatClientGUI:
                     if not chunk:
                         break
                     self.client_socket.sendall(chunk)
+            self.text_messages.insert(
+                tk.END, f"[{self.username}]: File Transferred - " + file_path + "\n")
 
     def back_to_main_window(self):
+        self.connected_clients_window.destroy()
         self.master.deiconify()
 
 

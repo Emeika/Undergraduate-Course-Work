@@ -41,6 +41,9 @@ class ChatClientGUI:
             self.master, text="Create User", command=self.create_user)
         self.create_user_button.grid(row=3, column=0, columnspan=2)
 
+        self.listbox_clients = tk.Listbox(self.master)
+        self.listbox_clients.grid(row=4, column=0, columnspan=2)
+
     def login(self):
         self.username = self.entry_username.get()
         password = self.entry_password.get()
@@ -113,13 +116,35 @@ class ChatClientGUI:
             connected_clients_window, text="Back", command=self.back_to_main_window)
         back_button.pack()
 
+        threading.Thread(target=self.listen_for_updates).start()
+
     def refresh_connected_clients(self):
-        self.client_socket.sendall("request_clients".encode('utf-8'))
-        response = self.client_socket.recv(1024).decode('utf-8')
-        self.connected_clients = response.split(",")
-        self.listbox_clients.delete(0, tk.END)
-        for client in self.connected_clients:
-            self.listbox_clients.insert(tk.END, client)
+        try:
+            self.client_socket.sendall("request_clients".encode('utf-8'))
+            response = self.client_socket.recv(1024).decode('utf-8')
+            self.connected_clients = response.split(",")
+            if hasattr(self, 'listbox_clients'):
+                self.listbox_clients.destroy()  # Destroy the existing listbox if it exists
+            self.listbox_clients = tk.Listbox(
+                self.master)  # Recreate the listbox
+            self.listbox_clients.grid(row=1, column=0)
+            for client in self.connected_clients:
+                self.listbox_clients.insert(tk.END, client)
+        except Exception as e:
+            messagebox.showerror(
+                "Error", f"Error refreshing connected clients: {e}")
+
+    def listen_for_updates(self):
+        try:
+            while True:
+                data = self.client_socket.recv(1024).decode('utf-8')
+                if not data:
+                    break
+                if data.startswith("CONNECTED_CLIENTS:"):
+                    self.connected_clients = data.split(":")[1].split(",")
+                    self.refresh_connected_clients()
+        except Exception as e:
+            messagebox.showerror("Error", f"Error receiving updates: {e}")
 
     def connect_with_client(self):
         selected_index = self.listbox_clients.curselection()
@@ -193,6 +218,7 @@ class ChatClientGUI:
                     self.client_socket.sendall(chunk)
 
     def back_to_main_window(self):
+        self.connected_clients_window.destroy()
         self.master.deiconify()
 
 
