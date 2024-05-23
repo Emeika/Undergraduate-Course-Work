@@ -1,0 +1,37 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+% family.pl
+
+% Define gender
+male(tom).
+male(bob).
+male(pat).
+male(joe).
+male(jim).
+
+female(liz).
+female(ann).
+female(pam).
+
+% Define parent relationships
+parent(pam, bob).
+parent(tom, liz).
+parent(tom, bob).
+parent(bob, ann).
+parent(bob, pat).
+parent(pat, jim).
+parent(joe, jim).
+
+
+% Define mother and father predicates
+mother(X, Y) :- parent(X, Y), female(X).
+father(X, Y) :- parent(X, Y), male(X).
+
+grandparent(X, Z) :-
+    parent(X, Y),    % X is a parent of Y
+    parent(Y, Z).    % Y is a parent of Z
+
+</div>
+
+</div>
