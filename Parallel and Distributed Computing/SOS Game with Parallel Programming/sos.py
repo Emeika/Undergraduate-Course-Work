@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 from multiprocessing import Process, Manager
 
-# Game configurations
 GRID_SIZE = 8
 
 
@@ -136,7 +135,7 @@ class SOSGUI:
         self.game.reset_game()
         for row in range(GRID_SIZE):
             for col in range(GRID_SIZE):
-                self.buttons[row][col].config(text='')
+                self.buttons[row][col].config(text='', state='normal')
         self.update_ui()
 
     def show_winner(self):
