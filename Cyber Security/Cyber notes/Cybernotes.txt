@@ -1,0 +1,35 @@
+Application layer:
+Protocols: HTTP HTTPS TELNET SMTP SSH 
+ADD SCHEME: URL
+
+Transport layer:
+TCP/UDP
+Ports
+
+
+Internet/ Network 
+ip/ icmp 
+ip address
+
+Pysical 
+Ethernet 
+FDDI
+ISDN
+MAC
+
+port 67 DHCP
+has IP, default gateway, CIDR, Broadcast ADDR
+
+XINETD 
+service that control different other services like echo 7 daytime(13) telnet22 etc
+
+systemcld status xineltd service
+systemcld start xineld.service
+
+press i to edit 
+disable = no change it to yes
+
+esc
+... wq
+
+
