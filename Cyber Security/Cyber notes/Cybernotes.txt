@@ -33,3 +33,46 @@ esc
 ... wq
 
 
+
+to search for an exploit:
+exploit-db.com
+rapid7
+on kali: search explouit
+
+192.168.145.233
+meta 3 windows box install
+vagrant box add packer/builds/windows_2008_r2_*_0.1.0.box 
+
+get information of sir
+
+devices - shared folder - 
+
+STACK OVERFLOW:
+
+return valu is stored in eax  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

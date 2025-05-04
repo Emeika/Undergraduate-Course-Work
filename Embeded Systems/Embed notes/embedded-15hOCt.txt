@@ -1,0 +1,277 @@
+Duty Cycle - percent if time the signal remains in ON state.
+Pulse Width - 
+
+Pulse Width Modulation:
+- used to get analog output using digital means.
+- Application:
+	- controlling speed of a DC motor/servo motor
+	- adjusting brightness of a DC lamp
+
+Arduino analog pins are 10 bits.
+PWM pins are 8 bit.
+
+motor + potentiometer code:
+const int motor = 9;
+const int pot = A0;
+int val = 0;
+
+void setup()
+{
+	pinMode(motor, OUTPUT);
+}
+
+void loop()
+{
+	val = analogRead(pot);
+	val = map(val, 0, 1023, 0, 255);
+	analogWrite(motor, val);
+}
+
+
+
+Wifi server:
+RAW
+Request/Response 
+
+Web server:
+server.on = path, callback fun
+server.send = code - 200, response get
+server.process 
+server.handleclient
+
+server.arg()
+
+
+
+Types of interrupt- inter and external
+attachinterrupt(arg1,arg2,arg3); //uses pin2 or 3
+return nothing
+arg1 interrupt number. -> digitalPinToInterrupt(pin(2or3)) = translates into correct interrupt number
+arg2 an ISR - Shld be very small, no delay, no input no retun, so it be executed faster
+arg3 Mode   -> LOQ , CHANCGE, RISING, FALLING
+benefit of interrupt- doesn't have to do polling again and again, check in a loop contimuosly, interrupt deosnt do fo tht
+
+use internal pullup
+
+PORTS:
+d0 to d7 is port D
+d8 to d13 is port B
+A0 to A5 is port C
+
+DDR - data direction register r.w - ddr and ddrt
+
+
+8BIT
+DDRD  
+B11000000  - 6 AND 7 ARE ON
+DDRB
+B00000001
+DDRC
+
+
+
+HOW TO SET/CLEAR BOOLEAN DATA
+MASKING can be done:
+and - place a 0 
+or - place a 1
+
+Reading values
+1 IS OUTPUT AND 0 IS INPUT
+Step1 - configure a pin as input
+DDRD & = B117011111;
+
+int rd;
+rd = (PIND >>5 & B00100000 >> 5);
+PORT   INPUT    REGISTER 
+PIN B
+PINC
+PINDD
+
+PIN CHANGE INTERRUPT:
+(PCINT)
+PCICR - PIN CHANGE INTERRUPT CONTROL REGISTER
+8 BITS
+7 6 5 4 3  2       1         0
+          PC1E2-D PCIE1-C PCIE0-B
+PCIEX - PIN CHANGE INTERRUPT ENABLE -X
+PCICR 1 = 0000100->USES PORT D
+PCMSK Register: PIN CHANGE MASK REGISTER
+PCMSK0 PORT B
+PCMSK1 PORT C
+PCMSK2 PORT D
+EG:
+PCICR = B00000100; //PORTD
+PCMSK2 = B00100000; //PIN5 OF PORTD
+
+
+to configure pin5 as interrupt pin steps
+ddrx - control direction, pin mode
+portx - high or low
+pinx
+
+PCICR | = B00000100 ; configures PORT D AS INTERRRUPT
+PCMSK2 = B00100000; specific port PIN5 CAN BE CONFIGURED NOW
+
+
+
+
+DDRD | B 0010000
+SCENARIO where 
+if a very large program then th edata would be there already
+if many developers are working on the same program 
+
+digitsl\write(5,HIGH)
+
+PORT B
+PORT C
+PORT D
+
+int val = digitalread(5)
+to modify the above use pin registers, REPLACE WITH PORT REGIUSTERS - makes it super fast
+PORT B
+PORT C
+PORT D
+int val = PIND>>5 & B00100000 >>5
+IT SHIFTING PIN 5, FIVE TIMES = 00000001 & 00000001 = 00000001
+
+Pulse :
+crystak.
+Arduino has 16mhz cyckes /sec
+Timer:
+T0- 8 BIT COUNTER - 0 - 255 SO T - 1/f = 1/16x 10^-6
+63 NSEC THEN * 255
+T0/T2    128X10^-9
+so the time it takes to overflow is 255
+
+T-1 16 BIT - 0 - 65535 = 4.012 x 10^-3
+T2 - 8 BIT - 0 -255 - overlows after 16.128 x 10^-6
+
+PRESCALAR
+T-0 0 - 255
+T = 63 X10^-9
+WITH A PRESCALER OF 8
+63 * 8 = 500 NSEC
+Types of timer interruots
+1. compare match interrupt
+2. overflow interrupt
+3. input capture interrupt: eat time an external interrupt occurs, the value of timer is stored and an ISR is executed. they are used to count events, to measure and calculate time between 2 events
+
+TO GENERATE A SPECIFIC DELAY:
+val = (TIMER FREQ/PRESCALER ) * DELAY TIME
+TIMER 0 OR TIMER 2
+LET US TRY PRESCALER = 8
+TIMER FREQ = 16 MHz
+DELAY TIME = 10^-3 SEC
+VAL = (16x10^6/8) * 10^-3 = 200
+
+VAL = (16x10^6/128) * 10^-3 = 125
+
+TIMER REGISTERS
+TO CONFIG TIMER WE USE REGISTER:
+1. TIMER COUNTER CONTROL
+REG TCCRX
+two tccrx for each timer
+T0 - TCCR0A & TCCRO8
+T1 - TCCR1A & TCCR18
+T2 - TCCR2A & TCCR28
+
+2. TIMER COUNTERREG TCNT - THIS IS THE REGISTER THT ACTUALLY INCREMNETS AND ITS VALUE IS COMPRED WITH OCR
+
+3. OCR OUTPUT CAPTURE REGISTER- TIMER OVERFLOWS WHEN IT EQUALS THIS VALUE OF REGISTER
+
+4. TIMSK0/1/2 - TIMER INTERRRUPT MASK REGISTER 
+FOR ITS BIT 1 IS CALLED OCIE0A/1A/2A, IF I WANT TO ENABLE A TIMER1 THEN ITS BIT 1 WILL BE HIGH
+
+TCCRxA
+| | | | | | | | WGMx1 | WGMx0
+WGM = wave form generation mode
+
+TCCRxB
+| | | | | | |  WGMx2 | CSx2 | CSx1 | CSx0
+CS = chif satred
+
+when the timer is completed normally count from 0 to 255 then overflow
+then for these wgm in A and B then put these values there
+WGMx2 WGMx1 WGMx0
+0       0      0
+0       1      0   = CTC clear timer on clear mode
+
+CSx2 CSx1 CSx0
+0      0    0 = timer is stopped
+0      0    1 = no prescaling
+0      1    0 = clk/8 (type of prescaler)
+0      1    1 = clk/64
+1      0    0 = clk/256
+1      0    1 = clk/1024
+
+
+ ALGORITHM=
+1 SET ENTIRE TCCR0A TO ZERO
+2. TCCR0B TO ZERO
+3. TCNT0 TO ZERO
+4. SET A VALUE IN OCR0A
+5. (FOR CTC MODE)
+- SET WGM01 BI TO 1 AND OTHER TWO TO ZERO
+- SET CS02, CS01, CS00 TO APPROPRIATE VALUE
+- SET OCIE0A BIT
+
+EXAMPLE:
+T0
+VAL = (16X10^6/ 1024) * 10* 10^-3 = 156
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
